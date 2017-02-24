@@ -7,6 +7,9 @@ public class BaseController {
 	private WebParam webParam;
 
 	public WebParam getWebParam() {
+		if (webParam == null) {
+			return new WebParam();
+		}
 		return webParam;
 	}
 

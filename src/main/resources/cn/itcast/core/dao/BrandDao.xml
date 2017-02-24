@@ -7,16 +7,31 @@
         <result property="description" column="description" />
         <result property="imgUrl" column="img_url" />
         <result property="sort" column="sort" />
-        <result property="isDisplay" column="is_display" />
+        <result property="isDisplay" column="is_display" javaType="java.lang.Integer" jdbcType="BIT"/>
     </resultMap>
     <!--查询品牌 get*-->
-    <select id="getBrandListWithPage" parameterType="java.util.Map" resultMap="baseResultMap">
+    <select id="getBrandListWithPage" parameterType="cn.itcast.core.web.pojo.WebParam" resultMap="baseResultMap">
       SELECT id,name,description,img_url,sort,is_display
         FROM bbs_brand
-        WHERE is_display = #{isDisplay}
+        <where>
+            <if test="isDisplay != null">
+                AND is_display = #{isDisplay}
+            </if>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+        </where>
         ORDER BY id DESC LIMIT 0,5
     </select>
-    <select id="getBrandCount" parameterType="java.util.Map" resultType="Integer">
-      SELECT COUNT(1) FROM bbs_brand WHERE is_display = #{isDisplay}
+    <select id="getBrandCount" parameterType="cn.itcast.core.web.pojo.WebParam" resultType="Integer">
+      SELECT COUNT(1) FROM bbs_brand
+        <where>
+            <if test="isDisplay != null">
+                AND is_display = #{isDisplay}
+            </if>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+        </where>
     </select>
 </mapper>
