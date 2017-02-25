@@ -16,4 +16,17 @@ public class BaseController {
 	public void setWebParam(WebParam webParam) {
 		this.webParam = webParam;
 	}
+
+	/*
+     *设置分页默认参数
+     * 默认页号是从1开始
+	 */
+	public void initPagination() {
+		if (webParam.get("pageNo") == null) {
+			webParam.put("pageNo",1);
+		}
+		if (webParam.get("pageSize") == null) {
+			webParam.put("pageSize",5);
+		}
+	}
 }

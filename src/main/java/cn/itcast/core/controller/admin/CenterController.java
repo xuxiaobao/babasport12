@@ -1,5 +1,6 @@
 package cn.itcast.core.controller.admin;
 
+import cn.itcast.core.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/control")
-public class CenterController {
+public class CenterController extends BaseController{
 
     @RequestMapping("/index.do")
     public String index(HttpServletRequest request) {

@@ -44,6 +44,7 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter{
 				}
 				
 				if (((HandlerMethod)handler).getBean() instanceof BaseController) {
+
 					((BaseController)((HandlerMethod)handler).getBean()).setWebParam(webParam);
 				}
 			}

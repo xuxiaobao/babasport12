@@ -173,17 +173,17 @@ public class Pagination extends SimplePage{
             pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(1)+"'\">"+(1)+"</a>");
             pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(2)+"'\">"+(2)+"</a>");
             pageView.add("...");
-            
+
             pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.pageNo-2)+"'\">"+(this.pageNo-2)+"</a>");
             pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.pageNo-1)+"'\">"+(this.pageNo-1)+"</a>");
             pageView.add("<strong>"+this.pageNo+"</strong>");
             pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.pageNo+1)+"'\">"+(this.pageNo+1)+"</a>");
             pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.pageNo+2)+"'\">"+(this.pageNo+2)+"</a>");
-            
+
             pageView.add("...");
             pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.getTotalPage()-1)+"'\">"+(this.getTotalPage()-1)+"</a>");
             pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.getTotalPage())+"'\">"+(this.getTotalPage())+"</a>");
-        }    
+        }
         if(this.pageNo != this.getTotalPage()){
             pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.pageNo+1)+"'\"><font size=2>下一页</font></a>");
             pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+this.getTotalPage()+"'\"><font size=2>尾页</font></a>");

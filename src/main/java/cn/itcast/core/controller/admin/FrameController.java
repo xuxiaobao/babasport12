@@ -1,5 +1,6 @@
 package cn.itcast.core.controller.admin;
 
+import cn.itcast.core.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/control")
-public class FrameController {
+public class FrameController extends BaseController{
 
     @RequestMapping("/frame/product_main.do")
     public String productMain(HttpServletRequest request) {

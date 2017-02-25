@@ -3,10 +3,14 @@ package cn.itcast.core.service.product;
 import cn.itcast.core.dao.product.BrandDao;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.page.Pagination;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 品牌事务
@@ -22,8 +26,13 @@ public class BrandServiceImpl implements BrandService{
     @Transactional(readOnly = true)
     public Pagination getBrandListWithPage(WebParam map) {
         /*分页*/
-        Pagination pagination = new Pagination((Integer.parseInt(map.get("page").toString())-1)*5,Integer.parseInt(map.get("rows").toString()),brandDao.getBrandCount(map));
-        pagination.setList(brandDao.getBrandListWithPage(map));
+        Integer pageNo = Integer.parseInt(map.get("pageNo").toString());
+        Integer pageSize = Integer.parseInt(map.get("pageSize").toString());
+        PageHelper.startPage(pageNo,pageSize);
+        List<Map<String, Object>> list = brandDao.getBrandListWithPage(map);
+        PageInfo<Map<String, Object>> page = new PageInfo<Map<String, Object>>(list);
+        Pagination pagination = new Pagination(pageNo,pageSize, (int) page.getTotal());
+        pagination.setList(page.getList());
         return pagination;
     }
 }

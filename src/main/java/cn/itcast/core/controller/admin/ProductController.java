@@ -1,5 +1,6 @@
 package cn.itcast.core.controller.admin;
 
+import cn.itcast.core.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/product")
-public class ProductController {
+public class ProductController extends BaseController{
 
     @RequestMapping("/list.do")
     public String productList() {

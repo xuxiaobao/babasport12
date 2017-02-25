@@ -15,6 +15,17 @@
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mapperLocations" value="classpath*:cn/itcast/core/dao/*.xml"/>
 		<property name="typeAliasesPackage" value="cn.itcast.core.bean"/>
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=mysql
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
 	</bean>
 	
 	<!-- 扫包  -->
