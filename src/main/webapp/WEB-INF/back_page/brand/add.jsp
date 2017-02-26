@@ -4,6 +4,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>babasport-add</title>
+	<script type="text/javascript">
+        function uploadPic() {
+			$("#jvForm").ajaxSubmit({
+                url : "/upload/uploadPic.do",
+                dataType : "json",
+                type : "post",
+                success : function (data) {
+                    //会掉俩路径，url，path
+
+                }
+            });
+		}
+	</script>
 </head>
 <body>
 <div class="box-positon">
@@ -36,7 +49,7 @@
 					<td width="20%" class="pn-flabel pn-flabel-h"></td>
 						<td width="80%" class="pn-fcontent">
 						<img width="100" height="100" id="allImgUrl"/>
-						<input type="file" />
+						<input type="file" onchange="uploadPic()" name="pic"/>
 					</td>
 				</tr>
 				<tr>
