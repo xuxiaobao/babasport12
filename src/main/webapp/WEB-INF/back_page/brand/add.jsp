@@ -12,7 +12,8 @@
                 type : "post",
                 success : function (data) {
                     //会掉俩路径，url，path
-
+					$("#allImgUrl").attr("src",data.url);
+					$("#path").val(data.path);
                 }
             });
 		}
@@ -49,6 +50,7 @@
 					<td width="20%" class="pn-flabel pn-flabel-h"></td>
 						<td width="80%" class="pn-fcontent">
 						<img width="100" height="100" id="allImgUrl"/>
+						<input id="path" type="hidden" name="path"/>
 						<input type="file" onchange="uploadPic()" name="pic"/>
 					</td>
 				</tr>
