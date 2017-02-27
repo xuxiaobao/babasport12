@@ -10,12 +10,12 @@ function getTableForm() {
 	return document.getElementById('tableForm');
 }
 function optDelete() {
-	if(Pn.checkedCount('ids')<=0) {
+	if(Pn.checkedCount('ids') <= 0) {
 		alert("请至少选择一个!");
-		return;
+		return false;
 	}
 	if(!confirm("确定删除吗?")) {
-		return;
+		return false;
 	}
 	var f = getTableForm();
 	f.action="o_delete.do";
@@ -50,8 +50,8 @@ function changePageNo(){
 	<input type="submit" class="query" value="查询"/>
 </form>
 <form method="post" id="tableForm">
-<input type="hidden" value="" name="pageNo"/>
-<input type="hidden" value="" name="queryName"/>
+<input type="hidden" value="${pams.pageNo}" name="pageNo"/>
+<input type="hidden" value="${pams.name}" name="queryName"/>
 <table cellspacing="1" cellpadding="0" width="100%" border="0" class="pn-ltable">
 	<thead class="pn-lthead">
 		<tr>

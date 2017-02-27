@@ -47,7 +47,7 @@
 				<td align="center">${entry.sort}</td>
 				<td align="center">${entry.isDisplay eq 0? "不是":"是"}</td>
 				<td align="center">
-				<a class="pn-opt" href="#">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}" href="#">删除</a>
+				<a class="pn-opt" href="#">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}" href="/brand/deleteById.do?id=${entry.id}&name=${pams.name}&isDisplay=${pams.isDisplay}">删除</a>
 				</td>
 			</tr>
 		</c:forEach>

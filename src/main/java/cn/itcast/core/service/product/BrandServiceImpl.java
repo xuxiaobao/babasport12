@@ -1,6 +1,7 @@
 package cn.itcast.core.service.product;
 
 import cn.itcast.core.dao.product.BrandDao;
+import cn.itcast.core.web.Constants;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.page.Pagination;
 import com.github.pagehelper.PageHelper;
@@ -30,9 +31,27 @@ public class BrandServiceImpl implements BrandService{
         Integer pageSize = Integer.parseInt(map.get("pageSize").toString());
         PageHelper.startPage(pageNo,pageSize);
         List<Map<String, Object>> list = brandDao.getBrandListWithPage(map);
+        for (Map<String, Object> brand : list) {
+            brand.put("imgUrl", Constants.IMG_URL+brand.get("imgUrl"));
+        }
         PageInfo<Map<String, Object>> page = new PageInfo<Map<String, Object>>(list);
         Pagination pagination = new Pagination(pageNo,pageSize, (int) page.getTotal());
         pagination.setList(page.getList());
         return pagination;
     }
+
+    public void addBrand(WebParam map) {
+        brandDao.addBrand(map);
+    }
+
+    public int deleteBrandById(WebParam map) {
+
+        return brandDao.deleteBrandById(map);
+    }
+
+    public int deleteBrandByIds(WebParam map) {
+        return deleteBrandByIds(map);
+    }
+
+
 }

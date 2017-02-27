@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by xxb on 2017/2/24.
  */
 @Controller
-@RequestMapping("/brand")
+@RequestMapping(value = "/brand")
 public class BrandController extends BaseController{
 
     @Autowired
@@ -49,4 +49,38 @@ public class BrandController extends BaseController{
         model.addAttribute("pams",webParam);
         return "brand/list";
     }
+
+    @Valid({
+            @Params(name = "name", type = String.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "imgUrl", type = String.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "description", type = String.class, validator = Validators.NONE,maxLength = "80"),
+            @Params(name = "sort", type = Integer.class, validator = Validators.NONE),
+            @Params(name = "isDisplay", type = Integer.class, validator = Validators.NONE)
+    })
+    @RequestMapping(value = "/add.do")
+    public String add() {
+        WebParam webParam = getWebParam();
+        brandService.addBrand(webParam);
+
+        return "brand/list";
+    }
+
+    @Valid({
+            @Params(name = "name", type = String.class, validator = Validators.NONE),
+            @Params(name = "isDisplay", type = Integer.class, validator = Validators.NONE),
+            @Params(name = "id", type = Integer.class, validator = Validators.COMMON.REQUIRED)
+    })
+    @RequestMapping(value = "/deleteById.do")
+    public String deleteBrandById(ModelMap model) {
+        WebParam webParam = getWebParam();
+        if (webParam.get("name") != null) {
+            model.addAttribute("name",webParam.get("name"));
+        }
+        if (webParam.get("isDisplay") != null) {
+            model.addAttribute("isDisplay",webParam.get("isDisplay"));
+        }
+        brandService.deleteBrandById(webParam);
+        return "redirect:/brand/list.do";
+    }
+
 }

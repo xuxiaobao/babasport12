@@ -8,4 +8,10 @@ import cn.itcast.page.Pagination;
  */
 public interface BrandService {
     public Pagination getBrandListWithPage(WebParam map);
+
+    public void addBrand(WebParam map);
+
+    public int deleteBrandById(WebParam map);
+
+    public int deleteBrandByIds(WebParam map);
 }

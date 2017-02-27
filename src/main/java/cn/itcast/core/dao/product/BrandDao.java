@@ -12,4 +12,10 @@ public interface BrandDao {
     public List<Map<String, Object>> getBrandListWithPage(WebParam map);
 
     public int getBrandCount(WebParam map);
+
+    public int addBrand(WebParam map);
+
+    public int deleteBrandById(WebParam map);
+
+    public int deleteBrandByIds(WebParam map);
 }

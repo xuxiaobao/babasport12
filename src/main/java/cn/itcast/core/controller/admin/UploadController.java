@@ -1,6 +1,7 @@
 package cn.itcast.core.controller.admin;
 
 import cn.itcast.common.web.ResponseUtils;
+import cn.itcast.core.web.Constants;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import org.apache.commons.io.FilenameUtils;
@@ -33,8 +34,8 @@ public class UploadController {
         format += r.nextInt(1000);
         Client client = new Client();
         StringBuilder sb = new StringBuilder();
-        String path = sb.append(format).append(".").append(ext).toString();
-        String url = "http://localhost:8180/upload/"+path;
+        String path = sb.append("upload/").append(format).append(".").append(ext).toString();
+        String url = Constants.IMG_URL+path;
         WebResource resource = client.resource(url);
         try {
             resource.put(String.class,pic.getBytes());

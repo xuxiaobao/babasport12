@@ -7,6 +7,7 @@
         <result property="description" column="description" />
         <result property="imgUrl" column="img_url" />
         <result property="sort" column="sort" />
+        <result property="webSite" column="web_site" />
         <result property="isDisplay" column="is_display" javaType="java.lang.Integer" jdbcType="BIT"/>
     </resultMap>
     <!--查询品牌 get*-->
@@ -34,4 +35,26 @@
             </if>
         </where>
     </select>
+    <insert id="addBrand" parameterType="cn.itcast.core.web.pojo.WebParam">
+        INSERT INTO bbs_brand
+        <trim prefix="(" suffix=")">
+            `name`,description,img_url,web_site,sort,is_display
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")">
+            #{name},#{description},#{imgUrl},#{webSite},#{sort},#{isDisplay}
+        </trim>
+    </insert>
+
+    <delete id="deleteBrandById" parameterType="cn.itcast.core.web.pojo.WebParam">
+        DELETE FROM bbs_brand WHERE id = #{id}
+    </delete>
+    <delete id="deleteBrandByIds" parameterType="cn.itcast.core.web.pojo.WebParam">
+        DELETE FROM bbs_brand
+        <trim prefix="WHERE" prefixOverrides="OR">
+            <foreach collection="ids" item="id">
+                OR id = #{id}
+            </foreach>
+        </trim>
+    </delete>
 </mapper>
