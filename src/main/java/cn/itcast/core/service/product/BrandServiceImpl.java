@@ -50,8 +50,18 @@ public class BrandServiceImpl implements BrandService{
     }
 
     public int deleteBrandByIds(WebParam map) {
-        return deleteBrandByIds(map);
+        return brandDao.deleteBrandByIds(map);
     }
 
+    public int updateBrandByKey(WebParam map) {
+
+        return brandDao.updateBrandByKey(map);
+    }
+
+    public Map<String, Object> getBrandById(WebParam map) {
+        Map<String, Object> brand = brandDao.getBrandById(map);
+        brand.put("allUrl", Constants.IMG_URL+brand.get("imgUrl"));
+        return brand;
+    }
 
 }

@@ -5,6 +5,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>babasport-list</title>
+	<script type="text/javascript">
+		function checkBox(name,checked) {
+			$("input[name='"+name+"']").attr("checked",checked);
+        }
+        function optDelete(name,isDisplay) {
+			if (Pn.checkedCount("ids") <= 0) {
+			    alert("请至少选择一个!");
+			    return;
+			}
+			if (!confirm("你确定删除吗？")) {
+			    return;
+			}
+			$("#jvForm").attr("action","/brand/deleteByIds.do?name="+name+"&isDisplay="+isDisplay);
+            $("#jvForm").attr("method","post").submit();
+        }
+	</script>
 </head>
 <body>
 <div class="box-positon">
@@ -23,44 +39,47 @@
 	</select>
 	<input type="submit" class="query" value="查询"/>
 </form>
-<table cellspacing="1" cellpadding="0" border="0" width="100%" class="pn-ltable">
-	<thead class="pn-lthead">
-		<tr>
-			<th width="20"><input type="checkbox" onclick="checkBox('ids',this.checked)"/></th>
-			<th>品牌ID</th>
-			<th>品牌名称</th>
-			<th>品牌图片</th>
-			<th>品牌描述</th>
-			<th>排序</th>
-			<th>是否可用</th>
-			<th>操作选项</th>
-		</tr>
-	</thead>
-	<tbody class="pn-ltbody">
-		<c:forEach items="${pagination.list}" var="entry">
-			<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
-				<td><input type="checkbox" value="${entry.id}" name="ids"/></td>
-				<td align="center">${entry.id}</td>
-				<td align="center">${entry.name}</td>
-				<td align="center"><img width="40" height="40" src="${entry.imgUrl}"/></td>
-				<td align="center">${entry.description}</td>
-				<td align="center">${entry.sort}</td>
-				<td align="center">${entry.isDisplay eq 0? "不是":"是"}</td>
-				<td align="center">
-				<a class="pn-opt" href="#">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}" href="/brand/deleteById.do?id=${entry.id}&name=${pams.name}&isDisplay=${pams.isDisplay}">删除</a>
-				</td>
-			</tr>
-		</c:forEach>
+<form id="jvForm">
 
-	</tbody>
-</table>
+	<table cellspacing="1" cellpadding="0" border="0" width="100%" class="pn-ltable">
+		<thead class="pn-lthead">
+			<tr>
+				<th width="20"><input type="checkbox" onclick="checkBox('ids',this.checked)"/></th>
+				<th>品牌ID</th>
+				<th>品牌名称</th>
+				<th>品牌图片</th>
+				<th>品牌描述</th>
+				<th>排序</th>
+				<th>是否可用</th>
+				<th>操作选项</th>
+			</tr>
+		</thead>
+		<tbody class="pn-ltbody">
+			<c:forEach items="${pagination.list}" var="entry">
+				<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
+					<td><input type="checkbox" value="${entry.id}" name="ids"/></td>
+					<td align="center">${entry.id}</td>
+					<td align="center">${entry.name}</td>
+					<td align="center"><img width="40" height="40" src="${entry.imgUrl}"/></td>
+					<td align="center">${entry.description}</td>
+					<td align="center">${entry.sort}</td>
+					<td align="center">${entry.isDisplay eq 0? "不是":"是"}</td>
+					<td align="center">
+					<a class="pn-opt" href="javascript:void(0);" onclick="window.location.href='/brand/toEdit.do?id=${entry.id}'">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}window.location.href='/brand/deleteById.do?id=${entry.id}&name=${pams.name}&isDisplay=${pams.isDisplay}'" href="javascript:void(0);">删除</a>
+					</td>
+				</tr>
+			</c:forEach>
+
+		</tbody>
+	</table>
+</form>
 <div class="page pb15"><span class="r inb_a page_b">
 	<c:forEach items="${pagination.pageView}" var="page">
 		${page}
 	</c:forEach>
 	</span>
 </div>
-<div style="margin-top:15px;"><input class="del-button" type="button" value="删除" onclick="optDelete();"/></div>
+<div style="margin-top:15px;"><input class="del-button" type="button" value="删除" onclick="optDelete('${pams.name}','${pams.isDisplay}')"/></div>
 </div>
 </body>
 </html>

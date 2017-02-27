@@ -13,6 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.xml.validation.Validator;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * 品牌
  * Created by xxb on 2017/2/24.
@@ -62,7 +66,7 @@ public class BrandController extends BaseController{
         WebParam webParam = getWebParam();
         brandService.addBrand(webParam);
 
-        return "brand/list";
+        return "redirect:/brand/list.do";
     }
 
     @Valid({
@@ -73,6 +77,7 @@ public class BrandController extends BaseController{
     @RequestMapping(value = "/deleteById.do")
     public String deleteBrandById(ModelMap model) {
         WebParam webParam = getWebParam();
+
         if (webParam.get("name") != null) {
             model.addAttribute("name",webParam.get("name"));
         }
@@ -80,6 +85,51 @@ public class BrandController extends BaseController{
             model.addAttribute("isDisplay",webParam.get("isDisplay"));
         }
         brandService.deleteBrandById(webParam);
+        return "redirect:/brand/list.do";
+    }
+
+    @Valid({
+            @Params(name = "name", type = String.class, validator = Validators.NONE),
+            @Params(name = "isDisplay", type = Integer.class, validator = Validators.NONE),
+            @Params(name = "ids", type = Set.class, elementType = Integer.class, validator = Validators.COMMON.REQUIRED)
+    })
+    @RequestMapping(value = "/deleteByIds.do")
+    public String deleteBrandByIds(ModelMap model) {
+        WebParam webParam = getWebParam();
+        if (webParam.get("name") != null) {
+            model.addAttribute("name",webParam.get("name"));
+        }
+        if (webParam.get("isDisplay") != null) {
+            model.addAttribute("isDisplay",webParam.get("isDisplay"));
+        }
+        brandService.deleteBrandByIds(webParam);
+        return "redirect:/brand/list.do";
+    }
+
+    @Valid({
+            @Params(name = "id", type = Integer.class, validator = Validators.COMMON.REQUIRED)
+    })
+    @RequestMapping(value = "/toEdit.do")
+    public String toEditor(ModelMap model) {
+        WebParam webParam = getWebParam();
+        Map<String, Object> brand = brandService.getBrandById(webParam);
+        model.addAttribute("brand",brand);
+        return "brand/edit";
+    }
+
+
+    @Valid({
+            @Params(name = "name", type = String.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "imgUrl", type = String.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "description", type = String.class, validator = Validators.NONE,maxLength = "80"),
+            @Params(name = "sort", type = Integer.class, validator = Validators.NONE),
+            @Params(name = "isDisplay", type = Integer.class, validator = Validators.NONE),
+            @Params(name = "id", type = Integer.class, validator = Validators.COMMON.REQUIRED)
+    })
+    @RequestMapping(value = "/edit.do")
+    public String edit(ModelMap model) {
+        WebParam webParam = getWebParam();
+        brandService.updateBrandByKey(webParam);
         return "redirect:/brand/list.do";
     }
 

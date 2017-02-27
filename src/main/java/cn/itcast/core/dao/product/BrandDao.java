@@ -18,4 +18,8 @@ public interface BrandDao {
     public int deleteBrandById(WebParam map);
 
     public int deleteBrandByIds(WebParam map);
+
+    public int updateBrandByKey(WebParam map);
+
+    public Map<String, Object> getBrandById(WebParam map);
 }

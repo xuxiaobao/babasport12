@@ -24,6 +24,11 @@
         </where>
         ORDER BY id DESC
     </select>
+    <select id="getBrandById" parameterType="cn.itcast.core.web.pojo.WebParam" resultMap="baseResultMap">
+      SELECT id,`name`,description,img_url,sort,is_display
+        FROM bbs_brand
+        WHERE id = #{id}
+    </select>
     <select id="getBrandCount" parameterType="cn.itcast.core.web.pojo.WebParam" resultType="Integer">
       SELECT COUNT(1) FROM bbs_brand
         <where>
@@ -57,4 +62,28 @@
             </foreach>
         </trim>
     </delete>
+    <update id="updateBrandByKey" parameterType="cn.itcast.core.web.pojo.WebParam">
+        UPDATE bbs_brand
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">
+                `name` = #{name},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="imgUrl != null">
+                img_url = #{imgUrl},
+            </if>
+            <if test="webSite != null">
+                web_site = #{webSite},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="isDisplay != null">
+                is_display = #{isDisplay},
+            </if>
+        </trim>
+        WHERE id = #{id}
+    </update>
 </mapper>
