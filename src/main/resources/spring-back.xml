@@ -15,11 +15,11 @@
         <bean class="cn.itcast.interceptor.ParamsInterceptor" />
     </mvc:interceptors>
     <mvc:annotation-driven />
-    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="webBindingInitializer">
             <bean class="cn.itcast.core.web.CustomDateEdtor" />
         </property>
-    </bean>-->
+    </bean>
 
     <!--jsp视图-->
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
