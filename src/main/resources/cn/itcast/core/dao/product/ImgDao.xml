@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.itcast.core.dao.product.ImgDao">
+	<resultMap id="baseResultMap" type="cn.itcast.core.web.pojo.WebResultMap">
+		<result property="id" column="id" />
+		<result property="productId" column="product_id" />
+		<result property="url" column="url" />
+		<result property="isDef" column="is_def" />
+	</resultMap>
+	<!-- Select SQL -->
+	<sql id="imgSelector">
+		SELECT
+			<if test="fields != null">
+				${fields}
+			</if>
+			<if test="fields == null">
+			id,product_id,url,is_def
+			</if>
+		FROM bbs_img
+	</sql>
+	<sql id="imgListWhere">
+		<where>
+			<if test="id != null">
+				and id=#{id}
+			</if>
+			<if test="productId != null">
+				and product_id=#{productId}
+			</if>
+			<if test="url != null">
+			<if test="urlLike == false">
+				and url=#{url}
+			</if>
+			<if test="urlLike == true">
+				and  url like "%"#{url}"%"
+			</if>
+			</if>
+			<if test="isDef != null">
+				and is_def=#{isDef}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 根据主键查询 -->
+	<select id="getImgByKey" resultMap="baseResultMap" parameterType="WebParam">
+		<include refid="imgSelector" />
+		<include refid="imgListWhere" />
+	</select>
+	<select id="getImgsByKeys" resultMap="baseResultMap" parameterType="WebParam">
+		<include refid="imgSelector" />
+		WHERE
+		id in
+		<foreach collection="ids" separator="," item="id" open="(" close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<!-- 根据主键删除 -->
+	<delete id="deleteByKey" parameterType="WebParam">
+		DELETE FROM bbs_img
+		WHERE
+		id=#{id}
+	</delete>
+
+	<!-- 根据主键批量删除 -->
+	<delete id="deleteByKeys" parameterType="WebParam">
+		DELETE FROM bbs_img
+		WHERE
+		id in
+		<foreach collection="ids" separator="," item="id" open="(" close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<!-- 根据主键更新 -->
+	<update id="updateImgByKey" parameterType="WebParam">
+		UPDATE bbs_img
+		<set>
+			<trim suffixOverrides=",">
+				<if test="id != null">
+					id = #{id},
+				</if>
+				<if test="productId != null">
+					product_id = #{productId},
+				</if>
+				<if test="url != null">
+					url = #{url},
+				</if>
+				<if test="isDef != null">
+					is_def = #{isDef}
+				</if>
+			</trim>
+		</set>
+		WHERE
+		id=#{id}
+	</update>
+	<!-- 分页 -->
+	<select id="getImgListWithPage" parameterType="WebParam" resultMap="baseResultMap">
+		<include refid="imgSelector" />
+		<include refid="imgListWhere" />
+		ORDER BY id DESC
+	</select>
+	<!-- 数据总数 -->
+	<select id="getImgListCount" parameterType="WebParam" resultType="int">
+		SELECT count(1) FROM bbs_img
+		<include refid="imgListWhere" />
+	</select>
+	<!-- 数据集合 -->
+	<select id="getImgList" parameterType="WebParam" resultMap="baseResultMap">
+		<include refid="imgSelector" />
+		<include refid="imgListWhere" />
+		ORDER BY id DESC
+	</select>
+	<!-- 添加 -->
+	<insert id="addImg" parameterType="WebParam">
+		INSERT INTO bbs_img
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="productId != null">
+				product_id,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="isDef != null">
+				is_def
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="productId != null">
+				#{productId},
+			</if>
+			<if test="url != null">
+				#{url},
+			</if>
+			<if test="isDef != null">
+				#{isDef}
+			</if>
+		</trim>
+	</insert>
+</mapper>

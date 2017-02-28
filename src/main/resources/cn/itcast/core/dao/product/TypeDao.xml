@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.itcast.core.dao.product.TypeDao">
+	<resultMap id="baseResultMap" type="cn.itcast.core.web.pojo.WebResultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="parentId" column="parent_id" />
+		<result property="note" column="note" />
+		<result property="isDisplay" column="is_display" />
+	</resultMap>
+	<!-- Select SQL -->
+	<sql id="typeSelector">
+		SELECT
+			<if test="fields != null">
+				${fields}
+			</if>
+			<if test="fields == null">
+			id,name,parent_id,note,is_display
+			</if>
+		FROM bbs_type
+	</sql>
+	<sql id="typeListWhere">
+		<where>
+				<if test="id != null">
+					and id=#{id}
+				</if>
+				<if test="name != null">
+				<if test="nameLike == false">
+					and name=#{name}
+				</if>
+				<if test="nameLike == true">
+					and  name like "%"#{name}"%"
+				</if>
+				</if>
+				<if test="parentId != null">
+					and parent_id=#{parentId}
+				</if>
+				<if test="note != null">
+				<if test="noteLike == false">
+					and note=#{note}
+				</if>
+				<if test="noteLike == true">
+					and  note like "%"#{note}"%"
+				</if>
+				</if>
+				<if test="isDisplay != null">
+					and is_display=#{isDisplay}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 根据主键查询 -->
+	<select id="getTypeByKey" resultMap="baseResultMap" parameterType="WebParam">
+		<include refid="typeSelector" />
+		WHERE
+		id=#{id}
+	</select>
+	<select id="getTypesByKeys" resultMap="baseResultMap" parameterType="WebParam">
+		<include refid="typeSelector" />
+		WHERE
+		id in
+		<foreach collection="ids" separator="," item="id" open="(" close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<!-- 根据主键删除 -->
+	<delete id="deleteByKey" parameterType="WebParam">
+		DELETE FROM bbs_type
+		WHERE
+		id=#{id}
+	</delete>
+
+	<!-- 根据主键批量删除 -->
+	<delete id="deleteByKeys" parameterType="WebParam">
+		DELETE FROM bbs_type
+		WHERE
+		id in
+		<foreach collection="ids" separator="," item="id" open="(" close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<!-- 根据主键更新 -->
+	<update id="updateTypeByKey" parameterType="WebParam">
+		UPDATE bbs_type
+		<set>
+			<trim suffixOverrides=",">
+				<if test="id != null">
+					id = #{id},
+				</if>
+				<if test="name != null">
+					name = #{name},
+				</if>
+				<if test="parentId != null">
+					parent_id = #{parentId},
+				</if>
+				<if test="note != null">
+					note = #{note},
+				</if>
+				<if test="isDisplay != null">
+					is_display = #{isDisplay}
+				</if>
+			</trim>
+		</set>
+		WHERE
+		id=#{id}
+	</update>
+	<!-- 分页 -->
+	<select id="getTypeListWithPage" parameterType="WebParam" resultMap="baseResultMap">
+		<include refid="typeSelector" />
+		<include refid="typeListWhere" />
+		ORDER BY id DESC
+	</select>
+	<!-- 数据总数 -->
+	<select id="getTypeListCount" parameterType="WebParam" resultType="int">
+		SELECT count(1) FROM bbs_type
+		<include refid="typeListWhere" />
+	</select>
+	<!-- 数据集合 -->
+	<select id="getTypeList" parameterType="WebParam" resultMap="baseResultMap">
+		<include refid="typeSelector" />
+		<include refid="typeListWhere" />
+		ORDER BY id DESC
+	</select>
+	<!-- 添加 -->
+	<insert id="addType" parameterType="WebParam">
+		INSERT INTO bbs_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="id != null">
+					id,
+				</if>
+				<if test="name != null">
+					name,
+				</if>
+				<if test="parentId != null">
+					parent_id,
+				</if>
+				<if test="note != null">
+					note,
+				</if>
+				<if test="isDisplay != null">
+					is_display
+				</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="id != null">
+					#{id},
+				</if>
+				<if test="name != null">
+					#{name},
+				</if>
+				<if test="parentId != null">
+					#{parentId},
+				</if>
+				<if test="note != null">
+					#{note},
+				</if>
+				<if test="isDisplay != null">
+					#{isDisplay}
+				</if>
+		</trim>
+	</insert>
+</mapper>
