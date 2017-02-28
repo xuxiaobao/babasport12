@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.itcast.core.dao.product.BrandDao">
-    <resultMap id="baseResultMap" type="java.util.Map">
+    <resultMap id="baseResultMap" type="WebResultMap">
         <id property="id" column="id" />
         <result property="name" column="name" />
         <result property="description" column="description" />
@@ -10,26 +10,50 @@
         <result property="webSite" column="web_site" />
         <result property="isDisplay" column="is_display" javaType="java.lang.Integer" jdbcType="BIT"/>
     </resultMap>
-    <!--查询品牌 get*-->
-    <select id="getBrandListWithPage" parameterType="cn.itcast.core.web.pojo.WebParam" resultMap="baseResultMap">
-      SELECT id,`name`,description,img_url,sort,is_display
-        FROM bbs_brand
+    <sql id="brandSelector">
+        <if test="fields != null">
+            ${fields}
+        </if>
+        <if test="fields == null">
+            id,`name`,description,img_url,sort,is_display
+        </if>
+    </sql>
+    <sql id="brandWhere">
         <where>
             <if test="isDisplay != null">
                 AND is_display = #{isDisplay}
             </if>
             <if test="name != null">
-                AND `name` LIKE "%${name}%"
+                <if test="nameLike == false">
+                    AND `name` = #{name}
+                </if>
+                <if test="nameLike == true">
+                    AND `name` LIKE "%${name}%"
+                </if>
             </if>
+
         </where>
+    </sql>
+    <select id="getBrandList" parameterType="WebParam" resultMap="baseResultMap">
+        SELECT
+        <include refid="brandSelector" />
+        FROM bbs_brand
+        <include refid="brandWhere" />
+    </select>
+    <!--查询品牌 get*-->
+    <select id="getBrandListWithPage" parameterType="WebParam" resultMap="baseResultMap">
+        SELECT
+        <include refid="brandSelector" />
+        FROM bbs_brand
+        <include refid="brandWhere" />
         ORDER BY id DESC
     </select>
-    <select id="getBrandById" parameterType="cn.itcast.core.web.pojo.WebParam" resultMap="baseResultMap">
+    <select id="getBrandById" parameterType="WebParam" resultMap="baseResultMap">
       SELECT id,`name`,description,img_url,sort,is_display
         FROM bbs_brand
         WHERE id = #{id}
     </select>
-    <select id="getBrandCount" parameterType="cn.itcast.core.web.pojo.WebParam" resultType="Integer">
+    <select id="getBrandCount" parameterType="WebParam" resultType="Integer">
       SELECT COUNT(1) FROM bbs_brand
         <where>
             <if test="isDisplay != null">
@@ -40,7 +64,7 @@
             </if>
         </where>
     </select>
-    <insert id="addBrand" parameterType="cn.itcast.core.web.pojo.WebParam">
+    <insert id="addBrand" parameterType="WebParam">
         INSERT INTO bbs_brand
         <trim prefix="(" suffix=")">
             `name`,description,img_url,web_site,sort,is_display
@@ -51,10 +75,10 @@
         </trim>
     </insert>
 
-    <delete id="deleteBrandById" parameterType="cn.itcast.core.web.pojo.WebParam">
+    <delete id="deleteBrandById" parameterType="WebParam">
         DELETE FROM bbs_brand WHERE id = #{id}
     </delete>
-    <delete id="deleteBrandByIds" parameterType="cn.itcast.core.web.pojo.WebParam">
+    <delete id="deleteBrandByIds" parameterType="WebParam">
         DELETE FROM bbs_brand
         <trim prefix="WHERE" prefixOverrides="OR">
             <foreach collection="ids" item="id">
@@ -62,7 +86,7 @@
             </foreach>
         </trim>
     </delete>
-    <update id="updateBrandByKey" parameterType="cn.itcast.core.web.pojo.WebParam">
+    <update id="updateBrandByKey" parameterType="WebParam">
         UPDATE bbs_brand
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null">

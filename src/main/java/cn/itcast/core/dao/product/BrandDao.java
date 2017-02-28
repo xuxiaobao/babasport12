@@ -1,15 +1,17 @@
 package cn.itcast.core.dao.product;
 
+import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.core.web.pojo.WebParam;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by xxb on 2017/2/23.
  */
 public interface BrandDao {
-    public List<Map<String, Object>> getBrandListWithPage(WebParam map);
+    public List<WebResultMap> getBrandListWithPage(WebParam map);
+
+    public List<WebResultMap> getBrandList(WebParam map);
 
     public int getBrandCount(WebParam map);
 
@@ -21,5 +23,5 @@ public interface BrandDao {
 
     public int updateBrandByKey(WebParam map);
 
-    public Map<String, Object> getBrandById(WebParam map);
+    public WebResultMap getBrandById(WebParam map);
 }

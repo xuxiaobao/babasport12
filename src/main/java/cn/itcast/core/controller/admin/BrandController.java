@@ -2,6 +2,7 @@ package cn.itcast.core.controller.admin;
 
 import cn.itcast.core.controller.BaseController;
 import cn.itcast.core.service.product.BrandService;
+import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.util.HrefParamUnion;
 import cn.itcast.page.Pagination;
@@ -13,8 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.xml.validation.Validator;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -112,7 +111,7 @@ public class BrandController extends BaseController{
     @RequestMapping(value = "/toEdit.do")
     public String toEditor(ModelMap model) {
         WebParam webParam = getWebParam();
-        Map<String, Object> brand = brandService.getBrandById(webParam);
+        WebResultMap brand = brandService.getBrandById(webParam);
         model.addAttribute("brand",brand);
         return "brand/edit";
     }
