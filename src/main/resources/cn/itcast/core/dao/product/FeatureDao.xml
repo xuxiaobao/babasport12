@@ -110,8 +110,7 @@
 	<select id="getFeatureListWithPage" parameterType="WebParam" resultMap="baseResultMap">
 		<include refid="featureSelector" />
 		<include refid="featureListWhere" />
-		<include refid="featureListOrder" />
-		<include refid="featureListLimit" />
+		ORDER BY id DESC
 	</select>
 	<!-- 数据总数 -->
 	<select id="getFeatureListCount" parameterType="WebParam" resultType="int">
