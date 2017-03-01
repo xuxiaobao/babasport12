@@ -3,28 +3,28 @@
 
 <mapper namespace="cn.itcast.core.dao.product.ProductDao">
 	<resultMap id="baseResultMap" type="cn.itcast.core.web.pojo.WebResultMap">
-		<id property="id" column="id" />
-		<result property="no" column="no" />
-		<result property="name" column="name" />
-		<result property="weight" column="weight" />
-		<result property="isNew" column="is_new" />
-		<result property="isHot" column="is_hot" />
-		<result property="isCommend" column="is_commend" />
-		<result property="createTime" column="create_time" />
-		<result property="createUserId" column="create_user_id" />
-		<result property="checkTime" column="check_time" />
-		<result property="checkUserId" column="check_user_id" />
-		<result property="isShow" column="is_show" />
-		<result property="isDel" column="is_del" />
-		<result property="typeId" column="type_id" />
-		<result property="brandId" column="brand_id" />
-		<result property="keywords" column="keywords" />
-		<result property="sales" column="sales" />
-		<result property="description" column="description" />
-		<result property="packageList" column="package_list" />
-		<result property="feature" column="feature" />
-		<result property="color" column="color" />
-		<result property="size" column="size" />
+		<id property="id" column="id" javaType="int" jdbcType="INTEGER"/>
+		<result property="no" column="no" javaType="string" jdbcType="VARCHAR"/>
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="weight" column="weight" javaType="double" jdbcType="DOUBLE" />
+		<result property="isNew" column="is_new" javaType="int" jdbcType="TINYINT"/>
+		<result property="isHot" column="is_hot" javaType="int" jdbcType="TINYINT"/>
+		<result property="isCommend" column="is_commend" javaType="int" jdbcType="TINYINT" />
+		<result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="DATE" />
+		<result property="createUserId" column="create_user_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="checkTime" column="check_time" javaType="java.util.Date" jdbcType="DATE" />
+		<result property="checkUserId" column="check_user_id" javaType="string" jdbcType="VARCHAR"/>
+		<result property="isShow" column="is_show" javaType="int" jdbcType="TINYINT"/>
+		<result property="isDel" column="is_del" javaType="int" jdbcType="TINYINT"/>
+		<result property="typeId" column="type_id" javaType="int" jdbcType="INTEGER" />
+		<result property="brandId" column="brand_id" javaType="int" jdbcType="INTEGER"/>
+		<result property="keywords" column="keywords" javaType="string" jdbcType="VARCHAR"/>
+		<result property="sales" column="sales" javaType="int" jdbcType="INTEGER"/>
+		<result property="description" column="description" javaType="string" jdbcType="LONGVARCHAR"/>
+		<result property="packageList" column="package_list" javaType="string" jdbcType="LONGVARCHAR"/>
+		<result property="feature" column="feature" javaType="string" jdbcType="VARCHAR"/>
+		<result property="color" column="color" javaType="string" jdbcType="VARCHAR"/>
+		<result property="size" column="size" javaType="String" jdbcType="VARCHAR"/>
 	</resultMap>
 	<!-- Select SQL -->
 	<sql id="productSelector">

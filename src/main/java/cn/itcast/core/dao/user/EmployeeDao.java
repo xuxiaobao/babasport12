@@ -1,26 +1,26 @@
-package cn.itcast.core.dao.product;
+package cn.itcast.core.dao.user;
 
 import java.util.List;
 
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 
-public interface TypeDao {
+public interface EmployeeDao {
 
 	/**
 	 * 添加
 	 */
-	public Integer addType(WebParam map);
+	public Integer addEmployee(WebParam map);
 
 	/**
 	 * 根据主键查找
 	 */
-	public WebResultMap getTypeByKey(WebParam map);
+	public WebResultMap getEmployeeByKey(WebParam map);
 
 	/**
 	 * 根据主键批量查找
 	 */
-	public List<WebResultMap> getTypesByKeys(WebParam map);
+	public List<WebResultMap> getEmployeesByKeys(WebParam map);
 
 	/**
 	 * 根据主键删除
@@ -35,20 +35,20 @@ public interface TypeDao {
 	/**
 	 * 根据主键更新
 	 */
-	public Integer updateTypeByKey(WebParam map);
+	public Integer updateEmployeeByKey(WebParam map);
 
 	/**
 	 * 分页查询
 	 */
-	public List<WebResultMap> getTypeListWithPage(WebParam map);
+	public List<WebResultMap> getEmployeeListWithPage(WebParam map);
 
 	/**
 	 * 集合查询
 	 */
-	public List<WebResultMap> getTypeList(WebParam map);
+	public List<WebResultMap> getEmployeeList(WebParam map);
 	
 	/**
 	 * 总条数
 	 */
-	public int getTypeListCount(WebParam map);
+	public int getEmployeeListCount(WebParam map);
 }

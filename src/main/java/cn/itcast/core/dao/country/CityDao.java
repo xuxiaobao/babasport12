@@ -1,27 +1,26 @@
-package cn.itcast.core.dao.product;
+package cn.itcast.core.dao.country;
 
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 
 import java.util.List;
 
-
-public interface ImgDao {
+public interface CityDao {
 
 	/**
 	 * 添加
 	 */
-	public Integer addImg(WebParam map);
+	public Integer addCity(WebParam map);
 
 	/**
 	 * 根据主键查找
 	 */
-	public WebResultMap getImgByKey(WebParam map);
+	public WebResultMap getCityByKey(WebParam map);
 
 	/**
 	 * 根据主键批量查找
 	 */
-	public List<WebResultMap> getImgsByKeys(WebParam map);
+	public List<WebResultMap> getCitysByKeys(WebParam map);
 
 	/**
 	 * 根据主键删除
@@ -36,20 +35,20 @@ public interface ImgDao {
 	/**
 	 * 根据主键更新
 	 */
-	public Integer updateImgByKey(WebParam map);
+	public Integer updateCityByKey(WebParam map);
 
 	/**
 	 * 分页查询
 	 */
-	public List<WebResultMap> getImgListWithPage(WebParam map);
+	public List<WebResultMap> getCityListWithPage(WebParam map);
 
 	/**
 	 * 集合查询
 	 */
-	public List<WebResultMap> getImgList(WebParam map);
+	public List<WebResultMap> getCityList(WebParam map);
 	
 	/**
 	 * 总条数
 	 */
-	public int getImgListCount(WebParam map);
+	public int getCityListCount(WebParam map);
 }
