@@ -1,8 +1,7 @@
 package cn.itcast.core.controller.admin;
 
 import cn.itcast.core.controller.BaseController;
-import cn.itcast.core.service.product.BrandService;
-import cn.itcast.core.service.product.ProductService;
+import cn.itcast.core.service.product.*;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.core.web.util.HrefParamUnion;
@@ -32,6 +31,12 @@ public class ProductController extends BaseController{
     private BrandService brandService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private TypeService typeService;
+    @Autowired
+    private FeatureService featureService;
+    @Autowired
+    private ColorService colorService;
 
     @Valid({
             @Params(name = "pageNo", type = Integer.class, validator = Validators.NONE),
@@ -58,5 +63,34 @@ public class ProductController extends BaseController{
         model.addAttribute("pagination",pagination);
         model.addAttribute("pams",webParam);
         return "product/list";
+    }
+
+    @RequestMapping(value = "/toAdd.do")
+    public String toAdd(ModelMap model) {
+        //加载商品类型
+        WebParam typeParam = new WebParam();
+        typeParam.put("fields","id,name");
+        typeParam.put("isDisplay",1);
+        typeParam.put("parentId",0);
+        List<WebResultMap> types = typeService.getTypeList(typeParam);
+        model.addAttribute("types",types);
+        //加载商品属性
+        WebParam featureParam = new WebParam();
+        featureParam.put("fields","id,name");
+        featureParam.put("isDel",1);
+        List<WebResultMap> features = featureService.getFeatureList(featureParam);
+        model.addAttribute("features",features);
+        //加载品牌列表
+        WebParam brandParam = new WebParam();
+        brandParam.put("fields","id,name");
+        brandParam.put("idDisplay",1);
+        List<WebResultMap> brands = brandService.getBrandList(brandParam);
+        model.addAttribute("brands",brands);
+        //加载颜色大全
+        WebParam colorParam = new WebParam();
+        colorParam.put("fields","id,name");
+        List<WebResultMap> colors = colorService.getColorList(colorParam);
+        model.addAttribute("colors",colors);
+        return "product/add";
     }
 }

@@ -46,11 +46,23 @@ $(function(){
 				var fck = new FCKeditor("productdesc");
 				fck.BasePath = "/res/fckeditor/";
 				fck.Height = 400 ;
+				fck.Config["ImageUploadURL"] = "/upload/uploadFck.do";
 				fck.ReplaceTextarea();
 			}
 		});
 	});
 });
+function uploadPic() {
+	$("#jvForm").ajaxSubmit({
+		url      : "/upload/uploadPic.do",
+		type     : "post",
+		dataType : "json",
+		success  : function(data) {
+			$("#product_url").attr("src",data.url);
+			$("#product_path").val(data.path);
+		}
+	});
+}
 </script>
 </head>
 <body>
@@ -76,8 +88,9 @@ $(function(){
 						商品类型:</td><td width="80%" class="pn-fcontent">
 								<select name="typeId">
 									<option value="">请选择</option>
-									<option value="2">瑜珈服</option>
-									<option value="3">瑜伽辅助</option>
+									<c:forEach items="${types}" var="entry">
+										<option value="${entry.id}">${entry.name}</option>
+									</c:forEach>
 								</select>
 					</td>
 				</tr>
@@ -93,9 +106,9 @@ $(function(){
 						商品品牌:</td><td width="80%" class="pn-fcontent">
 						<select name="brandId">
 							<option value="">请选择品牌</option>
-							<option value="1">依琦莲</option>
-							<option value="2">凯速（KANSOON）</option>
-							<option value="3">梵歌纳（vangona）</option>
+							<c:forEach items="${brands}" var="entry">
+								<option value="${entry.id}">${entry.name}</option>
+							</c:forEach>
 						</select>
 					</td>
 				</tr>
@@ -108,25 +121,18 @@ $(function(){
 				<tr>
 					<td width="20%" class="pn-flabel pn-flabel-h">
 						材质:</td><td width="80%" class="pn-fcontent">
-							<input type="checkbox" value="1" name="feature"/>环保人棉
-							<input type="checkbox" value="1" name="feature"/>环保人棉
-							<input type="checkbox" value="1" name="feature"/>环保人棉
-							<input type="checkbox" value="1" name="feature"/>环保人棉
-							<input type="checkbox" value="1" name="feature"/>环保人棉
-							<input type="checkbox" value="1" name="feature"/>环保人棉
+							<c:forEach items="${features}" var="entry">
+								<input type="checkbox" value="${entry.id}" name="feature"/>${entry.name}
+							</c:forEach>
 					</td>
 				</tr>
 				<tr>
 					<td width="20%" class="pn-flabel pn-flabel-h">
 						<span class="pn-frequired">*</span>
 						颜色:</td><td width="80%" class="pn-fcontent">
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
+							<c:forEach items="${colors}" var="entry">
+								<input type="checkbox" value="${entry.id}" name="color"/>${entry.name}
+							</c:forEach>
 					</td>
 				</tr>
 				<tr>
