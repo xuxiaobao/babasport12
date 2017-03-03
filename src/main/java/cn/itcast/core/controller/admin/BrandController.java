@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -90,7 +91,7 @@ public class BrandController extends BaseController{
     @Valid({
             @Params(name = "name", type = String.class, validator = Validators.NONE),
             @Params(name = "isDisplay", type = Integer.class, validator = Validators.NONE),
-            @Params(name = "ids", type = Set.class, elementType = Integer.class, validator = Validators.COMMON.REQUIRED)
+            @Params(name = "ids", type = ArrayList.class, elementType = Integer.class, validator = Validators.COMMON.REQUIRED)
     })
     @RequestMapping(value = "/deleteByIds.do")
     public String deleteBrandByIds(ModelMap model) {

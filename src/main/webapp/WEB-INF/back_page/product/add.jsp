@@ -139,11 +139,11 @@ function uploadPic() {
 					<td width="20%" class="pn-flabel pn-flabel-h">
 						<span class="pn-frequired">*</span>
 						尺码:</td><td width="80%" class="pn-fcontent">
-						<input type="checkbox" name="size" value="S"/>S
-						<input type="checkbox" name="size" value="M"/>M
-						<input type="checkbox" name="size" value="L"/>L
-						<input type="checkbox" name="size" value="XL"/>XL
-						<input type="checkbox" name="size" value="XXL"/>XXL
+						<input type="checkbox" name="productSize" value="S"/>S
+						<input type="checkbox" name="productSize" value="M"/>M
+						<input type="checkbox" name="productSize" value="L"/>L
+						<input type="checkbox" name="productSize" value="XL"/>XL
+						<input type="checkbox" name="productSize" value="XXL"/>XXL
 					</td>
 				</tr>
 				<tr>
@@ -166,7 +166,7 @@ function uploadPic() {
 					<td width="20%" class="pn-flabel pn-flabel-h"></td>
 						<td width="80%" class="pn-fcontent">
 						<img width="100" height="100" id="product_url"/>
-						<input type="hidden" name="picPath" id="product_path"/>
+						<input type="hidden" name="imgUrl" id="product_path"/>
 						<input type="file" onchange="uploadPic()" name="pic"/>
 					</td>
 				</tr>

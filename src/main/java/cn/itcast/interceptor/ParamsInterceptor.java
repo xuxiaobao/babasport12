@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,17 +56,17 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter{
 	private boolean processParamsAnnotation(WebParam webParam, Params params, HttpServletRequest request) {
 		if(SIMPLE_TYPES.contains(params.type())) {
 			webParam.put(params.name(), parseSimpleType(params.type(),request.getParameter(params.name())));
-		}else if (Set.class == params.type()){
+		}else if (ArrayList.class == params.type()){
 			if (SIMPLE_TYPES.contains(params.elementType())) {
 				String[] values = request.getParameterValues(params.name());
 				if (values == null) {
 					webParam.put(params.name(), null);
 				}else {
-					Set<Object> set = new HashSet<Object>();
+					ArrayList<Object> list = new ArrayList<Object>();
 					for (String value : values) {
-						set.add(parseSimpleType(params.elementType(), value));
+						list.add(parseSimpleType(params.elementType(), value));
 					}
-					webParam.put(params.name(), set);
+					webParam.put(params.name(), list);
 				}
 			}else {
 				throw new RuntimeException(request.getServletPath()+"-Not valid validation type " + params.elementType());

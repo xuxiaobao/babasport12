@@ -6,7 +6,7 @@
 		<id property="id" column="id" />
 		<result property="productId" column="product_id" />
 		<result property="colorId" column="color_id" />
-		<result property="size" column="size" />
+		<result property="skuSize" column="size" />
 		<result property="deliveFee" column="delive_fee" />
 		<result property="skuPrice" column="sku_price" />
 		<result property="stockInventory" column="stock_inventory" />

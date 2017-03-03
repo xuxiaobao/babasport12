@@ -14,7 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 后台商品管理
@@ -92,5 +95,26 @@ public class ProductController extends BaseController{
         List<WebResultMap> colors = colorService.getColorList(colorParam);
         model.addAttribute("colors",colors);
         return "product/add";
+    }
+
+    @Valid({
+            @Params(name = "typeId", type = Integer.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "name", type = String.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "brandId", type = Integer.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "weight", type = Double.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "feature", type = ArrayList.class, elementType = Integer.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "color", type = ArrayList.class, elementType = Integer.class,validator = Validators.COMMON.REQUIRED),
+            @Params(name = "productSize", type = ArrayList.class, elementType = String.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "isNew", type = Integer.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "isCommend", type = Integer.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "isHot", type = Integer.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "imgUrl", type = String.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "description", type = String.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "packageList", type = String.class, validator = Validators.COMMON.REQUIRED),
+    })
+    @RequestMapping("/add.do")
+    public void add(HttpServletRequest request) {
+        WebParam webParam = getWebParam();
+        productService.addProduct(webParam);
     }
 }

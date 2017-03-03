@@ -24,7 +24,7 @@
 		<result property="packageList" column="package_list" javaType="string" jdbcType="LONGVARCHAR"/>
 		<result property="feature" column="feature" javaType="string" jdbcType="VARCHAR"/>
 		<result property="color" column="color" javaType="string" jdbcType="VARCHAR"/>
-		<result property="size" column="size" javaType="String" jdbcType="VARCHAR"/>
+		<result property="productSize" column="size" javaType="string" jdbcType="VARCHAR"/>
 	</resultMap>
 	<!-- Select SQL -->
 	<sql id="productSelector">
@@ -283,7 +283,7 @@
 		ORDER BY id DESC
 	</select>
 	<!-- 添加 -->
-	<insert id="addProduct" parameterType="WebParam">
+	<insert id="addProduct" parameterType="WebParam" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO bbs_product
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -349,7 +349,7 @@
 			<if test="color != null">
 				color,
 			</if>
-			<if test="size != null">
+			<if test="productSize != null">
 				`size`
 			</if>
 		</trim>
@@ -418,8 +418,8 @@
 			<if test="color != null">
 				#{color},
 			</if>
-			<if test="size != null">
-				#{size}
+			<if test="productSize != null">
+				#{productSize}
 			</if>
 		</trim>
 	</insert>
