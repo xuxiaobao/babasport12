@@ -267,19 +267,25 @@ function login(){
 
 		<h2 class="h2 h2_filter mt"><em title="商品筛选">商品筛选</em><cite><a href="javascript:void(0);" id="filterRest" title="重置筛选条件">重置筛选条件</a></cite></h2>
 			<ul class="uls filter">
-				<li><label>已选条件：</label>
-				<p class="sel">
-					<a href="javascript:void(0);">
-					<em>品牌：</em>依琦莲
-					<cite title="关闭此筛选条件">X</cite></a>
-				</p>
-				</li>
-				<li><b>品牌：</b><p>
-					<a href="javascript:void(0);" title="不限" class="here">不限</a>
-					<c:forEach items="${brands}" var="entry">
-						<a href="javascript:void(0);" title="${entry .name}">${entry.name}</a>
-					</c:forEach>
-				</p></li>
+				<c:if test="${flag}">
+					<li><label>已选条件：</label>
+					<p class="sel">
+						<c:forEach items="${query}" var="q">
+							<a href="javascript:void(0);">
+							<em>${q.key}：</em>${q.value}
+							<cite title="关闭此筛选条件">X</cite></a>
+						</c:forEach>
+					</p>
+					</li>
+				</c:if>
+				<c:if test="${empty pams.brandName}">
+					<li><b>品牌：</b><p>
+						<a href="javascript:void(0);" title="不限" class="here">不限</a>
+						<c:forEach items="${brands}" var="entry">
+							<a href="javascript:void(0);" title="${entry .name}" onclick="window.location.href='/product/display/list.shtml?brandId=${entry.id}&brandName=${entry.name}&typeId=${pams.typeId}&typeName=${pams.typeName}&featuresId=${pams.featuresId}&featuresName=${pams.featuresName}'">${entry.name}</a>
+						</c:forEach>
+					</p></li>
+				</c:if>
 				<li><b>价格：</b><p>
 					<a href="javascript:void(0);" title="不限" class="here">不限</a>
 					<a href="javascript:void(0);" title="1-99">0-79</a>
@@ -289,19 +295,22 @@ function login(){
 					<a href="javascript:void(0);" title="200-499">500-599</a>
 					<a href="javascript:void(0);" title="200-499">600以上</a>
 				</p></li>
-				<li><b>类型：</b><p>
-					<a href="javascript:void(0);" title="不限" class="here">不限</a>
-					<c:forEach items="${types}" var="entry">
-						<a href="javascript:void(0);" title="${entry.name}">${entry.name}</a>
-					</c:forEach>
-				</p></li>
-				<li><b>材质：</b><p>
-					<span><a href="javascript:void(0);" title="不限" class="here">不限</a></span>
-					<c:forEach items="${features}" var="entry">
-						<span><a href="javascript:void(0);" title="${entry.name}">${entry.name}</a></span>
-					</c:forEach>
-				</p></li>
-
+				<c:if test="${empty pams.typeName}">
+					<li><b>类型：</b><p>
+						<a href="javascript:void(0);" title="不限" class="here">不限</a>
+						<c:forEach items="${types}" var="entry">
+							<a href="javascript:void(0);" title="${entry.name}" onclick="window.location.href='/product/display/list.shtml?typeId=${entry.id}&typeName=${entry.name}&brandId=${pams.brandId}&brandName=${pams.brandName}&featuresId=${pams.featuresId}&featuresName=${pams.featuresName}'">${entry.name}</a>
+						</c:forEach>
+					</p></li>
+				</c:if>
+				<c:if test="${empty pams.featuresName}">
+					<li><b>材质：</b><p>
+						<span><a href="javascript:void(0);" title="不限" class="here">不限</a></span>
+						<c:forEach items="${features}" var="entry">
+							<span><a href="javascript:void(0);" title="${entry.name}" onclick="window.location.href='/product/display/list.shtml?featuresId=${entry.id}&featuresName=${entry.name}&typeId=${pams.typeId}&typeName=${pams.typeName}&brandId=${pams.brandId}&brandName=${pams.brandName}'">${entry.name}</a></span>
+						</c:forEach>
+					</p></li>
+				</c:if>
 				<li><b>适用人群：</b><p>
 					<a href="javascript:void(0);" title="不限" class="here">不限</a>
 					<a href="javascript:void(0);" title="男士">男士</a>
@@ -317,166 +326,27 @@ function login(){
 			</div>
 			<div class="mt ofc">
 				<ul class="uls i_150x150 x4_150x150b">
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
-					<li>
-						<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="/res/img/pic/ppp.jpg" alt="瑜伽服" /></a>
-						<dl>
-							<!-- dt 10个文字+... -->
-							<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
-							<!-- dt 25个文字+... -->
-							<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
-							<dd class="orange">￥128.00</dd>
-							<dd>北京有货</dd>
-							<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
-						</dl>
-						<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
-					</li>
+					<c:forEach items="${pagination.list}" var="entry">
+						<li>
+							<a href="productDetail.jsp" title="瑜伽服" target="_blank" class="pic"><img src="${entry.img.allUrl}" alt="瑜伽服" /></a>
+							<dl>
+								<!-- dt 10个文字+... -->
+								<dt><a href="productDetail.jsp" title="依琦莲2014瑜伽服套装新款" target="_blank">依琦莲2014瑜伽服套装新款</a></dt>
+								<!-- dt 25个文字+... -->
+								<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
+								<dd class="orange">￥128.00</dd>
+								<dd>北京有货</dd>
+								<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>
+							</dl>
+							<img src="/res/img/pic/hot.gif" alt="热门" class="type" />
+						</li>
+					</c:forEach>
 				</ul>
 			<div class="page pb15">
 				<span class="r inb_a page_b">
-					<span id="previousNo" class="inb" title="上一页"><samp>&lt;&lt;</samp>上一页</span><a href="javascript:void(0);" id="previous" title="上一页" style="display:none"><samp>&lt;&lt;</samp>上一页</a><span title="第1页" class="inb current">1</span><!--a href="#" title="第1页">1</a--><a href="#" title="第2页">2</a><a href="#" title="第3页">3</a><a href="#" title="第4页">4</a><a href="#" title="第5页">5</a><span class="break">...</span><a href="#" title="第16页">16</a><span id="nextNo" class="inb" title="下一页" style="display:none">下一页<samp>&gt;&gt;</samp></span><a href="javascript:void(0);" id="next" title="下一页">下一页<samp>&gt;&gt;</samp></a>共<var id="pageTotal" class="orange">0</var>页 到第<input type="text" id="number" name="number" class="txts" size="3" />页 <input type="button" id="skip" class="hand btn60x20" value='确定' />
+					<c:forEach items="${pagination.pageView}" var="page">
+						${page}
+					</c:forEach>
 				</span>
 			</div>
 	</div>

@@ -13,7 +13,7 @@ public class HrefParamUnion {
                 params.append("&").append(args[i]).append("=").append(webParam.get(args[i]));
             }
         }
-        if (params.length() > 0) {
+        if (params.length() > 0 && (params.charAt(0) == '&')) {
             params.replace(0,1,"");
         }
         return params;
