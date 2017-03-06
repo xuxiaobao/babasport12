@@ -1,5 +1,6 @@
 package cn.itcast.core.service.product;
 
+import cn.itcast.core.web.pojo.ImgResultMap;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.page.Pagination;
@@ -18,12 +19,12 @@ public interface ImgService {
     /**
      * 根据主键查找
      */
-    public WebResultMap getImgByKey(WebParam map);
+    public ImgResultMap getImgByKey(WebParam map);
 
     /**
      * 根据主键批量查找
      */
-    public List<WebResultMap> getImgsByKeys(WebParam map);
+    public List<ImgResultMap> getImgsByKeys(WebParam map);
 
     /**
      * 根据主键删除
@@ -48,7 +49,7 @@ public interface ImgService {
     /**
      * 集合查询
      */
-    public List<WebResultMap> getImgList(WebParam map);
+    public List<ImgResultMap> getImgList(WebParam map);
 
     /**
      * 总条数

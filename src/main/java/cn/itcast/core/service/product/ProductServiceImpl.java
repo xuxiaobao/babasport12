@@ -1,6 +1,7 @@
 package cn.itcast.core.service.product;
 
 import cn.itcast.core.dao.product.ProductDao;
+import cn.itcast.core.web.pojo.ImgResultMap;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.page.Pagination;
@@ -96,7 +97,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Integer updateProductByKey(WebParam map) {
-        return null;
+        return productDao.updateProductByKey(map);
     }
 
     @Transactional(readOnly = true)
@@ -106,10 +107,17 @@ public class ProductServiceImpl implements ProductService {
         Integer pageSize = Integer.parseInt(map.get("pageSize").toString());
         PageHelper.startPage(pageNo,pageSize);
         List<WebResultMap> list = productDao.getProductListWithPage(map);
+        for (WebResultMap product : list) {
+            WebParam imgParam = new WebParam();
+            imgParam.put("productId",product.get("id"));
+            List<ImgResultMap> imgList = imgService.getImgList(imgParam);
+            if (imgList != null && imgList.size() > 0) {
+                product.put("img",imgList.get(0));
+            }
+        }
         PageInfo pageInfo = new PageInfo(list);
         Pagination pagination = new Pagination(pageNo,pageSize, (int) pageInfo.getTotal());
         pagination.setList(pageInfo.getList());
-
         return pagination;
     }
 

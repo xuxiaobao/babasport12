@@ -276,16 +276,9 @@ function login(){
 				</li>
 				<li><b>品牌：</b><p>
 					<a href="javascript:void(0);" title="不限" class="here">不限</a>
-					<a href="/product/list/display.shtml?brandId=1&brandName=依琦莲&typeName=${typeName }&typeId=${typeId}" title="依琦莲">依琦莲</a>
-					<a href="javascript:void(0);" title="凯速（KANSOON）">凯速（KANSOON）</a>
-					<a href="javascript:void(0);" title="梵歌纳（vangona）">梵歌纳（vangona）</a>
-					<a href="javascript:void(0);" title="菩媞">菩媞</a>
-					<a href="javascript:void(0);" title="伽美斯（Jamars）">伽美斯（Jamars）</a>
-					<a href="javascript:void(0);" title="金啦啦">金啦啦</a>
-					<a href="javascript:void(0);" title="伊朵莲">伊朵莲</a>
-					<a href="javascript:void(0);" title="喜悦瑜伽">喜悦瑜伽</a>
-					<a href="javascript:void(0);" title="路伊梵（LEFAN）">路伊梵（LEFAN）</a>
-					<a href="javascript:void(0);" title="来尔瑜伽（LaiErYoGA）">来尔瑜伽（LaiErYoGA）</a>
+					<c:forEach items="${brands}" var="entry">
+						<a href="javascript:void(0);" title="${entry .name}">${entry.name}</a>
+					</c:forEach>
 				</p></li>
 				<li><b>价格：</b><p>
 					<a href="javascript:void(0);" title="不限" class="here">不限</a>
@@ -298,19 +291,15 @@ function login(){
 				</p></li>
 				<li><b>类型：</b><p>
 					<a href="javascript:void(0);" title="不限" class="here">不限</a>
-					<a href="/product/list/display.shtml?typeId=2&brandId=${brandId }&brandName=${brandName}&typeName=瑜伽服" title="瑜伽服">瑜伽服</a>
-					<a href="javascript:void(0);" title="瑜伽铺巾">瑜伽铺巾</a>
-					<a href="javascript:void(0);" title="瑜伽垫">瑜伽垫</a>
-					<a href="javascript:void(0);" title="舞蹈鞋服">舞蹈鞋服</a>
-					<a href="javascript:void(0);" title="瑜伽辅助">瑜伽辅助</a>
+					<c:forEach items="${types}" var="entry">
+						<a href="javascript:void(0);" title="${entry.name}">${entry.name}</a>
+					</c:forEach>
 				</p></li>
 				<li><b>材质：</b><p>
 					<span><a href="javascript:void(0);" title="不限" class="here">不限</a></span>
-					<span><a href="javascript:void(0);" title="环保人棉">环保人棉</a></span>
-					<span><a href="javascript:void(0);" title="莫代尔">莫代尔</a></span>
-					<span><a href="javascript:void(0);" title="莫代尔">莫代尔</a></span>
-					<span><a href="javascript:void(0);" title="莫代尔">莫代尔</a></span>
-					<span><a href="javascript:void(0);" title="莫代尔">莫代尔</a></span>
+					<c:forEach items="${features}" var="entry">
+						<span><a href="javascript:void(0);" title="${entry.name}">${entry.name}</a></span>
+					</c:forEach>
 				</p></li>
 
 				<li><b>适用人群：</b><p>

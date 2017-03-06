@@ -11,6 +11,7 @@ import cn.itcast.validator.annotation.Params;
 import cn.itcast.validator.annotation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -56,7 +57,6 @@ public class ProductController extends BaseController{
         model.addAttribute("brands",brands);
         WebParam webParam = getWebParam();
         /*设置分页参数*/
-        initPagination();
         webParam.put("nameLike",true);
         /*webParam.put("fields","id,no,name,")*/
         Pagination pagination = productService.getProductListWithPage(webParam);
@@ -113,8 +113,33 @@ public class ProductController extends BaseController{
             @Params(name = "packageList", type = String.class, validator = Validators.COMMON.REQUIRED),
     })
     @RequestMapping("/add.do")
-    public void add(HttpServletRequest request) {
+    public String add(ModelMap model) {
         WebParam webParam = getWebParam();
         productService.addProduct(webParam);
+        WebParam pams = new WebParam();
+        pams.put("isShow",0);
+        model.addAttribute("pams",pams);
+        return "redirect:/product/list.do";
+    }
+
+    @Valid({
+            @Params(name = "pageNo", type = Integer.class, validator = Validators.NONE),
+            @Params(name = "name", type = String.class, validator = Validators.NONE),
+            @Params(name = "brandId", type = Integer.class, validator = Validators.NONE),
+            @Params(name = "isShow", type = Integer.class, validator = Validators.NONE),
+            @Params(name = "ids", type = ArrayList.class, elementType = Integer.class, validator = Validators.NONE),
+    })
+    @RequestMapping("/isShow.do")
+    public String isShow(ModelMap model) {
+        WebParam webParam = getWebParam();
+        for (Integer productId : (ArrayList<Integer>)webParam.get("ids")) {
+            WebParam productParam = new WebParam();
+            productParam.put("id",productId);
+            productParam.put("isShow", 1);
+            productService.updateProductByKey(productParam);
+        }
+        webParam.put("isShow",0);
+        model.addAttribute("pams", webParam);
+        return "redirect:/product/list.do";
     }
 }

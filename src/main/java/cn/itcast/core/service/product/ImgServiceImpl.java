@@ -1,6 +1,7 @@
 package cn.itcast.core.service.product;
 
 import cn.itcast.core.dao.product.ImgDao;
+import cn.itcast.core.web.pojo.ImgResultMap;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.page.Pagination;
@@ -24,11 +25,11 @@ public class ImgServiceImpl implements ImgService {
         return imgDao.addImg(map);
     }
 
-    public WebResultMap getImgByKey(WebParam map) {
+    public ImgResultMap getImgByKey(WebParam map) {
         return null;
     }
 
-    public List<WebResultMap> getImgsByKeys(WebParam map) {
+    public List<ImgResultMap> getImgsByKeys(WebParam map) {
         return null;
     }
 
@@ -48,8 +49,8 @@ public class ImgServiceImpl implements ImgService {
         return null;
     }
 
-    public List<WebResultMap> getImgList(WebParam map) {
-        return null;
+    public List<ImgResultMap> getImgList(WebParam map) {
+        return imgDao.getImgList(map);
     }
 
     public int getImgListCount(WebParam map) {

@@ -8,8 +8,9 @@ public class BaseController {
 
 	public WebParam getWebParam() {
 		if (webParam == null) {
-			return new WebParam();
+			webParam = new WebParam();
 		}
+		initPagination();
 		return webParam;
 	}
 
@@ -21,7 +22,7 @@ public class BaseController {
      *设置分页默认参数
      * 默认页号是从1开始
 	 */
-	public void initPagination() {
+	private void initPagination() {
 		if (webParam.get("pageNo") == null) {
 			webParam.put("pageNo",1);
 		}

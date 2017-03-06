@@ -45,7 +45,6 @@ public class BrandController extends BaseController{
         StringBuilder params = new StringBuilder();
         WebParam webParam = getWebParam();
         /*设置分页参数*/
-        initPagination();
         Pagination pagination = brandService.getBrandListWithPage(webParam);
         params = HrefParamUnion.paramsUnion(webParam,"name","isDisplay");
         pagination.pageView("/brand/list.do",params.toString());
