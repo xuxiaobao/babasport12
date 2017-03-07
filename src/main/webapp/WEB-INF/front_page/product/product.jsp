@@ -271,7 +271,7 @@ function login(){
 					<li><label>已选条件：</label>
 					<p class="sel">
 						<c:forEach items="${query}" var="q">
-							<a href="javascript:void(0);">
+							<a href="javascript:void(0);" onclick="">
 							<em>${q.key}：</em>${q.value}
 							<cite title="关闭此筛选条件">X</cite></a>
 						</c:forEach>

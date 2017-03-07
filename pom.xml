@@ -133,6 +133,12 @@
       <artifactId>commons-codec</artifactId>
       <version>1.9</version>
     </dependency>
+
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+    </dependency>
     <!-- analyze xml use dom4j -->
     <dependency>
       <groupId>dom4j</groupId>
