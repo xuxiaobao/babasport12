@@ -24,7 +24,7 @@ public class ColorServiceImpl implements ColorService {
     }
 
     public WebResultMap getColorByKey(WebParam map) {
-        return null;
+        return colorDao.getColorByKey(map);
     }
 
     public List<WebResultMap> getColorsByKeys(WebParam map) {

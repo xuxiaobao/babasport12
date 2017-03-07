@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,8 +18,12 @@ import java.util.List;
 @Transactional
 public class SkuServiceImpl implements SkuService {
 
-    @Autowired
+    @Resource
     private SkuDao skuDao;
+    @Resource
+    private ImgService imgService;
+    @Resource
+    private ColorService colorService;
 
     public Integer addSku(WebParam map) {
         return skuDao.addSku(map);
@@ -48,8 +53,16 @@ public class SkuServiceImpl implements SkuService {
         return null;
     }
 
+    @Transactional(readOnly = true)
     public List<WebResultMap> getSkuList(WebParam map) {
-        return null;
+        List<WebResultMap> skuList = skuDao.getSkuList(map);
+        for (WebResultMap sku : skuList) {
+            WebParam colorParam = new WebParam();
+            colorParam.put("id",sku.get("colorId"));
+            WebResultMap color = colorService.getColorByKey(colorParam);
+            sku.put("color",color);
+        }
+        return skuList;
     }
 
     public int getSkuListCount(WebParam map) {
