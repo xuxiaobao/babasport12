@@ -46,7 +46,7 @@ public class SkuServiceImpl implements SkuService {
     }
 
     public Integer updateSkuByKey(WebParam map) {
-        return null;
+        return skuDao.updateSkuByKey(map);
     }
 
     public Pagination getSkuListWithPage(WebParam map) {
@@ -56,6 +56,17 @@ public class SkuServiceImpl implements SkuService {
     @Transactional(readOnly = true)
     public List<WebResultMap> getSkuList(WebParam map) {
         List<WebResultMap> skuList = skuDao.getSkuList(map);
+        for (WebResultMap sku : skuList) {
+            WebParam colorParam = new WebParam();
+            colorParam.put("id",sku.get("colorId"));
+            WebResultMap color = colorService.getColorByKey(colorParam);
+            sku.put("color",color);
+        }
+        return skuList;
+    }
+
+    public List<WebResultMap> getStock(WebParam map) {
+        List<WebResultMap> skuList = skuDao.getStock(map);
         for (WebResultMap sku : skuList) {
             WebParam colorParam = new WebParam();
             colorParam.put("id",sku.get("colorId"));

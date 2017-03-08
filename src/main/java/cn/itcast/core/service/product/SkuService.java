@@ -51,6 +51,11 @@ public interface SkuService {
     public List<WebResultMap> getSkuList(WebParam map);
 
     /**
+     * 有库存的集合查询
+     */
+    public List<WebResultMap> getStock(WebParam map);
+
+    /**
      * 总条数
      */
     public int getSkuListCount(WebParam map);

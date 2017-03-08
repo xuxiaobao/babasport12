@@ -1,22 +1,22 @@
 package cn.itcast.core.controller.front;
 
 import cn.itcast.core.controller.BaseController;
-import cn.itcast.core.service.product.BrandService;
-import cn.itcast.core.service.product.FeatureService;
-import cn.itcast.core.service.product.ProductService;
-import cn.itcast.core.service.product.TypeService;
+import cn.itcast.core.service.product.*;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.core.web.util.HrefParamUnion;
 import cn.itcast.page.Pagination;
+import cn.itcast.validator.Validators;
 import cn.itcast.validator.annotation.Params;
 import cn.itcast.validator.annotation.Valid;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +36,8 @@ public class FrontProductController extends BaseController{
     private BrandService brandService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private SkuService skuService;
 
     @Valid({
             @Params(name = "pageNo", type = Integer.class),
@@ -99,5 +101,23 @@ public class FrontProductController extends BaseController{
         model.addAttribute("flag", flag);
         model.addAttribute("query",query);
         return "product/product";
+    }
+
+
+    @Valid({
+            @Params(name = "id", type = Integer.class, validator = Validators.COMMON.REQUIRED),
+    })
+    @RequestMapping(value = "/product/detail.shtml")
+    public String detail(ModelMap model) {
+        WebParam webParam = getWebParam();
+        WebResultMap product = productService.getProductByKey(webParam);
+        model.addAttribute("product",product);
+        String[] colorIds = product.get("color").toString().split(",");
+        model.addAttribute("colorIds", colorIds);
+        WebParam skuParam = new WebParam();
+        skuParam.put("productId", webParam.get("id"));
+        List<WebResultMap> skuList = skuService.getStock(skuParam);
+        model.addAttribute("skus",skuList);
+        return "product/productDetail";
     }
 }

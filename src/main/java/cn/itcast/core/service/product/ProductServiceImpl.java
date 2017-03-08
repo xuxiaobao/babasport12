@@ -7,7 +7,7 @@ import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.page.Pagination;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang3.StringUtils;
+import com.sun.deploy.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
         String no = df.format(new Date());
         map.put("no", no);
         map.put("createTime", new Date());
-        map.put("productSize",StringUtils.join((ArrayList<String>)map.get("productSize"),","));
+        map.put("productSize", StringUtils.join((ArrayList<String>)map.get("productSize"),","));
         map.put("color",StringUtils.join((ArrayList<Integer>)map.get("color"),","));
         map.put("feature",StringUtils.join((ArrayList<Integer>)map.get("feature"),","));
         //插入商品
@@ -80,8 +80,16 @@ public class ProductServiceImpl implements ProductService {
         return productR;
     }
 
+    @Transactional(readOnly = true)
     public WebResultMap getProductByKey(WebParam map) {
-        return null;
+        WebResultMap product = productDao.getProductByKey(map);
+        WebParam imgParam = new WebParam();
+        imgParam.put("productId", product.get("id"));
+        List<ImgResultMap> imgList = imgService.getImgList(imgParam);
+        if (imgList != null && imgList.size() > 0) {
+            product.put("img", imgList.get(0));
+        }
+        return product;
     }
 
     public List<WebResultMap> getProductsByKeys(WebParam map) {

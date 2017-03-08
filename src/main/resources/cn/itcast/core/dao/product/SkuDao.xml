@@ -176,8 +176,8 @@
 				<if test="colorId != null">
 					color_id = #{colorId},
 				</if>
-				<if test="size != null">
-					size = #{size},
+				<if test="skuSize != null">
+					size = #{skuSize},
 				</if>
 				<if test="deliveFee != null">
 					delive_fee = #{deliveFee},
@@ -249,6 +249,13 @@
 		id,product_id,color_id,`size`,delive_fee,sku_price,stock_inventory,sku_upper_limit,location,sku_img,sku_sort,sku_name,market_price,create_time,update_time,create_user_id,update_user_id,last_status,sku_type,sales
 		FROM bbs_sku
 		<include refid="skuListWhere" />
+		ORDER BY id DESC
+	</select>
+	<select id="getStock" parameterType="WebParam" resultMap="baseResultMap">
+		SELECT
+		id,product_id,color_id,`size`,delive_fee,sku_price,stock_inventory,sku_upper_limit,location,sku_img,sku_sort,sku_name,market_price,create_time,update_time,create_user_id,update_user_id,last_status,sku_type,sales
+		FROM bbs_sku
+		WHERE stock_inventory > 0 AND product_id = ${productId}
 		ORDER BY id DESC
 	</select>
 	<!-- 添加 -->
