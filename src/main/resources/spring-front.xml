@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <context:component-scan base-package="cn.itcast" use-default-filters="false">
@@ -13,8 +14,33 @@
     </mvc:interceptors>
     <mvc:annotation-driven />
     <!--jsp视图-->
-    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="1">
         <property name="prefix" value="/WEB-INF/front_page/" />
         <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- 配置freemaker视图解析器 -->
+    <bean id="ftlViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver" p:order="0">
+        <property name="viewClass">
+            <value>org.springframework.web.servlet.view.freemarker.FreeMarkerView</value>
+        </property>
+        <property name="contentType" value="text/html;charset=utf-8"></property>
+        <property name="cache" value="true"></property>
+        <property name="suffix" value=".ftl"></property>
+    </bean>
+    <!-- 配置freemarker模版路径 -->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath">
+            <value>/WEB-INF/</value>
+        </property>
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">0</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="time_format">hh:mm:ss</prop>
+                <prop key="datetime_format">yyyy-MM-dd hh:mm:ss</prop>
+            </props>
+        </property>
     </bean>
 </beans>

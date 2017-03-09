@@ -328,10 +328,10 @@ function login(){
 				<ul class="uls i_150x150 x4_150x150b">
 					<c:forEach items="${pagination.list}" var="entry">
 						<li>
-							<a href="javascript:void(0);" onclick="window.open('/product/detail.shtml?id=${entry.id}')" title="瑜伽服" class="pic"><img src="${entry.img.allUrl}" alt="瑜伽服" /></a>
+							<a href="javascript:void(0);" onclick="window.open('/product/display/detail.shtml?id=${entry.id}')" title="瑜伽服" class="pic"><img src="${entry.img.allUrl}" alt="瑜伽服" /></a>
 							<dl>
 								<!-- dt 10个文字+... -->
-								<dt><a href="javascript:void(0);" onclick="window.open('/product/detail.shtml?id=${entry.id}')" title="依琦莲2014瑜伽服套装新款">依琦莲2014瑜伽服套装新款</a></dt>
+								<dt><a href="javascript:void(0);" onclick="window.open('/product/display/detail.shtml?id=${entry.id}')" title="依琦莲2014瑜伽服套装新款">依琦莲2014瑜伽服套装新款</a></dt>
 								<!-- dt 25个文字+... -->
 								<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
 								<dd class="orange">￥128.00</dd>

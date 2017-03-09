@@ -107,7 +107,7 @@ public class FrontProductController extends BaseController{
     @Valid({
             @Params(name = "id", type = Integer.class, validator = Validators.COMMON.REQUIRED),
     })
-    @RequestMapping(value = "/product/detail.shtml")
+    @RequestMapping(value = "/product/display/detail.shtml")
     public String detail(ModelMap model) {
         WebParam webParam = getWebParam();
         WebResultMap product = productService.getProductByKey(webParam);
@@ -118,6 +118,6 @@ public class FrontProductController extends BaseController{
         skuParam.put("productId", webParam.get("id"));
         List<WebResultMap> skuList = skuService.getStock(skuParam);
         model.addAttribute("skus",skuList);
-        return "product/productDetail";
+        return "ftl/productDetail";
     }
 }

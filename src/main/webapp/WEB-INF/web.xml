@@ -18,7 +18,7 @@
     <filter-class>com.opensymphony.oscache.web.filter.CacheFilter</filter-class>
     <init-param>
       <param-name>time</param-name>
-      <param-value>7200</param-value>
+      <param-value>10</param-value>
     </init-param>
     <init-param>
       <param-name>scope</param-name>
