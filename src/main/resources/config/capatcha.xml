@@ -29,9 +29,7 @@
     <bean id="wordgen" class="com.octo.captcha.component.word.wordgenerator.RandomWordGenerator">
         <!--可选字符-->
         <constructor-arg>
-            <value>
-                0123456789abcdefghijklmnopqrstuvwxyz
-            </value>
+            <value>aabbccddeefgghhkkmnnooppqqsstuuvvwxxyyzz</value>
         </constructor-arg>
     </bean>
 
@@ -50,11 +48,11 @@
     <bean id="fontGenRandom" class="com.octo.captcha.component.image.fontgenerator.RandomFontGenerator">
         <!--最小字体-->
         <constructor-arg index="0">
-            <value>20</value>
+            <value>26</value>
         </constructor-arg>
         <!--最大字体-->
         <constructor-arg index="1">
-            <value>20</value>
+            <value>34</value>
         </constructor-arg>
         <constructor-arg index="2">
             <list>
@@ -66,7 +64,7 @@
                         <value>0</value>
                     </constructor-arg>
                     <constructor-arg index="2">
-                        <value>20</value>
+                        <value>32</value>
                     </constructor-arg>
                 </bean>
             </list>
@@ -76,11 +74,11 @@
     <bean id="backGenUni" class="com.octo.captcha.component.image.backgroundgenerator.UniColorBackgroundGenerator">
         <!--背景宽度-->
         <constructor-arg index="0">
-            <value>80</value>
+            <value>110</value>
         </constructor-arg>
         <!--背景高度-->
         <constructor-arg index="1">
-            <value>32</value>
+            <value>50</value>
         </constructor-arg>
     </bean>
 
@@ -134,13 +132,13 @@
 
     <bean id="colorDimGrey" class="java.awt.Color">
         <constructor-arg type="int" index="0">
-            <value>105</value>
+            <value>50</value>
         </constructor-arg>
         <constructor-arg type="int" index="1">
-            <value>105</value>
+            <value>50</value>
         </constructor-arg>
         <constructor-arg type="int" index="2">
-            <value>105</value>
+            <value>50</value>
         </constructor-arg>
     </bean>
 </beans>

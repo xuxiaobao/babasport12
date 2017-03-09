@@ -17,7 +17,7 @@
 <script type="text/javascript">
 //登陆
 function login(){
-	window.location.href = "/buyer/toLogin.shtml";
+	window.location.href = "/shopping/toLogin.shtml?returnUrl=" + window.location.href;
 }
 </script>
 </head>

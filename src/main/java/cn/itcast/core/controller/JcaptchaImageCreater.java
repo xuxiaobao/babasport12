@@ -34,7 +34,7 @@ public class JcaptchaImageCreater {
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) {
         try {
             ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
-            String captchaId = request.getSession().getId();
+            String captchaId = sessionProvider.getSessionId(request);
             BufferedImage challenge = imageCaptchaService.getImageChallengeForID(captchaId, request.getLocale());
 
             response.setHeader("Cache-Control", "no-store");
