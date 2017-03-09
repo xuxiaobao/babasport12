@@ -224,6 +224,11 @@
       <artifactId>spring-boot</artifactId>
       <version>1.5.1.RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>com.octo.captcha</groupId>
+      <artifactId>jcaptcha</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>babasport12</finalName>

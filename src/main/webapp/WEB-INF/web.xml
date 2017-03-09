@@ -70,5 +70,13 @@
     <servlet-name>front</servlet-name>
     <url-pattern>*.shtml</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>verification</servlet-name>
+    <servlet-class>cn.itcast.common.verification.Verification</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>verification</servlet-name>
+    <url-pattern>/verification.svl</url-pattern>
+  </servlet-mapping>
 </web-app>
 

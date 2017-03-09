@@ -11,4 +11,5 @@
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<import resource="config/*.xml" />
+	<bean id="sessionProvider" class="cn.itcast.core.web.session.HttpSessionProvider"></bean>
 </beans>

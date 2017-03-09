@@ -13,6 +13,7 @@
         <bean class="cn.itcast.interceptor.ParamsInterceptor" />
     </mvc:interceptors>
     <mvc:annotation-driven />
+
     <!--jsp视图-->
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="1">
         <property name="prefix" value="/WEB-INF/front_page/" />
