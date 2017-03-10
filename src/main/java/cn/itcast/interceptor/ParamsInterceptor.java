@@ -21,6 +21,7 @@ import java.util.Set;
 
 public class ParamsInterceptor extends HandlerInterceptorAdapter{
 	private static final Set<Class<?>> SIMPLE_TYPES = new HashSet<Class<?>>();
+
 	static{
 		SIMPLE_TYPES.add(Integer.class);
 		SIMPLE_TYPES.add(Long.class);
@@ -33,6 +34,7 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+
 			if (handler instanceof HandlerMethod) {
 				Valid valid = ((HandlerMethod)handler).getMethodAnnotation(Valid.class);
 				WebParam webParam = new WebParam();

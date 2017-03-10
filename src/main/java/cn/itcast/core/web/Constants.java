@@ -6,4 +6,5 @@ package cn.itcast.core.web;
  */
 public class Constants {
     public static String IMG_URL = "http://localhost:8180/";
+    public static String BUYER_SESSION = "user";
 }

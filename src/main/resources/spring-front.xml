@@ -10,6 +10,11 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
     <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/buyer/*"/>
+            <bean class="cn.itcast.core.web.LoginInterceptor"></bean>
+        </mvc:interceptor>
+        <bean class="cn.itcast.core.web.LoginStatusInterceptor" />
         <bean class="cn.itcast.interceptor.ParamsInterceptor" />
     </mvc:interceptors>
     <mvc:annotation-driven />

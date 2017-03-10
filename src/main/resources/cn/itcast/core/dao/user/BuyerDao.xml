@@ -98,14 +98,14 @@
 	<select id="getBuyerByKey" resultMap="baseResultMap" parameterType="Webparam">
 		<include refid="buyerSelector" />
 		WHERE
-		username=#{id}
+		username=#{username}
 	</select>
 	<select id="getBuyersByKeys" resultMap="baseResultMap" parameterType="WebParam">
 		<include refid="buyerSelector" />
 		WHERE
 		username in
 		<foreach collection="ids" separator="," item="id" open="(" close=")">
-			#{id}
+			#{username}
 		</foreach>
 	</select>
 
@@ -113,7 +113,7 @@
 	<delete id="deleteByKey" parameterType="WebParam">
 		DELETE FROM bbs_buyer
 		WHERE
-		username=#{id}
+		username=#{username}
 	</delete>
 
 	<!-- 根据主键批量删除 -->
@@ -173,7 +173,7 @@
 	<select id="getBuyerListWithPage" parameterType="WebParam" resultMap="baseResultMap">
 		<include refid="buyerSelector" />
 		<include refid="buyerListWhere" />
-		ORDER BY id DESC
+		ORDER BY username DESC
 	</select>
 	<!-- 数据总数 -->
 	<select id="getBuyerListCount" parameterType="WebParam" resultType="int">
@@ -184,7 +184,7 @@
 	<select id="getBuyerList" parameterType="WebParam" resultMap="baseResultMap">
 		<include refid="buyerSelector" />
 		<include refid="buyerListWhere" />
-		ORDER BY id DESC
+		ORDER BY username DESC
 	</select>
 	<!-- 添加 -->
 	<insert id="addBuyer" parameterType="WebParam">
