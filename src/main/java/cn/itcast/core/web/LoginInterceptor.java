@@ -22,9 +22,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         if (null == buyer) {
             String returnUrl = request.getParameter("returnUrl");
             if (StringUtils.isNotBlank(returnUrl)) {
-                returnUrl = (new StringBuilder("/shopping/login.shtml?returnUrl=")).append(returnUrl).toString();
+                returnUrl = (new StringBuilder("/shopping/toLogin.shtml?returnUrl=")).append(returnUrl).toString();
             } else {
-                returnUrl = "/shopping/login.shtml";
+                returnUrl = "/shopping/toLogin.shtml";
             }
             response.sendRedirect(returnUrl);
             return false;
