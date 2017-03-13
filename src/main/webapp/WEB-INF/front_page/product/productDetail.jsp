@@ -131,7 +131,7 @@
 <script type="text/javascript">
 //加入购物车
 function addCart(){
-	alert("添加购物车成功!");
+	window.location.href = "/shopping/addCart.shtml?skuId="+sku_id+"&amount="+$("#num").val()+"&buyLimit="+buy_limit+"&productId="+${product.id};
 }
 //立即购买
 function buy(){

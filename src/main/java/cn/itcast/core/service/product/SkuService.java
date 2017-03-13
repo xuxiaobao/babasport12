@@ -18,7 +18,7 @@ public interface SkuService {
     /**
      * 根据主键查找
      */
-    public WebResultMap getSkuByKey(WebParam map);
+    public WebResultMap getSkuByKey(Integer id);
 
     /**
      * 根据主键批量查找

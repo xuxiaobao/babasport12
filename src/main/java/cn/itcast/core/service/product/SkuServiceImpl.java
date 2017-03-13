@@ -24,13 +24,26 @@ public class SkuServiceImpl implements SkuService {
     private ImgService imgService;
     @Resource
     private ColorService colorService;
+    @Resource
+    private ProductService productService;
 
     public Integer addSku(WebParam map) {
         return skuDao.addSku(map);
     }
 
-    public WebResultMap getSkuByKey(WebParam map) {
-        return null;
+    @Transactional(readOnly = true)
+    public WebResultMap getSkuByKey(Integer id) {
+        WebResultMap sku = skuDao.getSkuByKey(id);
+        WebParam productParam = new WebParam();
+        productParam.put("id", sku.get("productId"));
+        WebResultMap product = productService.getProductByKey(productParam);
+        sku.put("product", product);
+
+        WebParam colorParam = new WebParam();
+        colorParam.put("id",sku.get("colorId"));
+        WebResultMap color = colorService.getColorByKey(colorParam);
+        sku.put("color",color);
+        return sku;
     }
 
     public List<WebResultMap> getSkusByKeys(WebParam map) {

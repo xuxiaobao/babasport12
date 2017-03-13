@@ -85,6 +85,7 @@ public class ProductServiceImpl implements ProductService {
         WebResultMap product = productDao.getProductByKey(map);
         WebParam imgParam = new WebParam();
         imgParam.put("productId", product.get("id"));
+        imgParam.put("isDef", 1);
         List<ImgResultMap> imgList = imgService.getImgList(imgParam);
         if (imgList != null && imgList.size() > 0) {
             product.put("img", imgList.get(0));
