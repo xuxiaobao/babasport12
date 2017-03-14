@@ -1,6 +1,7 @@
 package cn.itcast.core.service.product;
 
 import cn.itcast.core.dao.product.SkuDao;
+import cn.itcast.core.web.pojo.Sku;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.page.Pagination;
@@ -32,10 +33,10 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Transactional(readOnly = true)
-    public WebResultMap getSkuByKey(Integer id) {
-        WebResultMap sku = skuDao.getSkuByKey(id);
+    public Sku getSkuByKey(Integer id) {
+        Sku sku = skuDao.getSkuByKey(id);
         WebParam productParam = new WebParam();
-        productParam.put("id", sku.get("productId"));
+        productParam.put("id", sku.getProductId());
         WebResultMap product = productService.getProductByKey(productParam);
         sku.put("product", product);
 
@@ -46,7 +47,7 @@ public class SkuServiceImpl implements SkuService {
         return sku;
     }
 
-    public List<WebResultMap> getSkusByKeys(WebParam map) {
+    public List<Sku> getSkusByKeys(WebParam map) {
         return null;
     }
 
@@ -67,7 +68,7 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Transactional(readOnly = true)
-    public List<WebResultMap> getSkuList(WebParam map) {
+    public List<Sku> getSkuList(WebParam map) {
         List<WebResultMap> skuList = skuDao.getSkuList(map);
         for (WebResultMap sku : skuList) {
             WebParam colorParam = new WebParam();
@@ -78,7 +79,7 @@ public class SkuServiceImpl implements SkuService {
         return skuList;
     }
 
-    public List<WebResultMap> getStock(WebParam map) {
+    public List<Sku> getStock(WebParam map) {
         List<WebResultMap> skuList = skuDao.getStock(map);
         for (WebResultMap sku : skuList) {
             WebParam colorParam = new WebParam();

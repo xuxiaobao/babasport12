@@ -1,7 +1,7 @@
 package cn.itcast.core.service.product;
 
+import cn.itcast.core.web.pojo.Sku;
 import cn.itcast.core.web.pojo.WebParam;
-import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.page.Pagination;
 
 import java.util.List;
@@ -18,12 +18,12 @@ public interface SkuService {
     /**
      * 根据主键查找
      */
-    public WebResultMap getSkuByKey(Integer id);
+    public Sku getSkuByKey(Integer id);
 
     /**
      * 根据主键批量查找
      */
-    public List<WebResultMap> getSkusByKeys(WebParam map);
+    public List<Sku> getSkusByKeys(WebParam map);
 
     /**
      * 根据主键删除
@@ -48,12 +48,12 @@ public interface SkuService {
     /**
      * 集合查询
      */
-    public List<WebResultMap> getSkuList(WebParam map);
+    public List<Sku> getSkuList(WebParam map);
 
     /**
      * 有库存的集合查询
      */
-    public List<WebResultMap> getStock(WebParam map);
+    public List<Sku> getStock(WebParam map);
 
     /**
      * 总条数

@@ -42,8 +42,5 @@ public class BuyCart {
      * @param obj
      * @return
      */
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
+
 }
