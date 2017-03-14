@@ -1,5 +1,6 @@
 package cn.itcast.core.service.product;
 
+import cn.itcast.core.web.pojo.Product;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.page.Pagination;
@@ -18,12 +19,12 @@ public interface ProductService {
     /**
      * 根据主键查找
      */
-    public WebResultMap getProductByKey(WebParam map);
+    public Product getProductByKey(WebParam map);
 
     /**
      * 根据主键批量查找
      */
-    public List<WebResultMap> getProductsByKeys(WebParam map);
+    public List<Product> getProductsByKeys(WebParam map);
 
     /**
      * 根据主键删除
@@ -48,7 +49,7 @@ public interface ProductService {
     /**
      * 集合查询
      */
-    public List<WebResultMap> getProductList(WebParam map);
+    public List<Product> getProductList(WebParam map);
 
     /**
      * 总条数

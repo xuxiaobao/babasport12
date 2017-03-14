@@ -1,5 +1,6 @@
 package cn.itcast.core.service.product;
 
+import cn.itcast.core.web.pojo.Color;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.page.Pagination;
@@ -18,12 +19,12 @@ public interface ColorService {
     /**
      * 根据主键查找
      */
-    public WebResultMap getColorByKey(WebParam map);
+    public Color getColorByKey(WebParam map);
 
     /**
      * 根据主键批量查找
      */
-    public List<WebResultMap> getColorsByKeys(WebParam map);
+    public List<Color> getColorsByKeys(WebParam map);
 
     /**
      * 根据主键删除
@@ -48,7 +49,7 @@ public interface ColorService {
     /**
      * 集合查询
      */
-    public List<WebResultMap> getColorList(WebParam map);
+    public List<Color> getColorList(WebParam map);
 
     /**
      * 总条数

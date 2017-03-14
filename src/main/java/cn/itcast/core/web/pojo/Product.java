@@ -28,6 +28,15 @@ public class Product {
     private String feature;
     private String color;
     private String productSize;
+    private Img img;
+
+    public Img getImg() {
+        return img;
+    }
+
+    public void setImg(Img img) {
+        this.img = img;
+    }
 
     public Integer getId() {
         return id;

@@ -1,5 +1,6 @@
 package cn.itcast.core.dao.product;
 
+import cn.itcast.core.web.pojo.Img;
 import cn.itcast.core.web.pojo.ImgResultMap;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
@@ -17,12 +18,12 @@ public interface ImgDao {
 	/**
 	 * 根据主键查找
 	 */
-	public ImgResultMap getImgByKey(WebParam map);
+	public Img getImgByKey(WebParam map);
 
 	/**
 	 * 根据主键批量查找
 	 */
-	public List<ImgResultMap> getImgsByKeys(WebParam map);
+	public List<Img> getImgsByKeys(WebParam map);
 
 	/**
 	 * 根据主键删除
@@ -42,12 +43,12 @@ public interface ImgDao {
 	/**
 	 * 分页查询
 	 */
-	public List<ImgResultMap> getImgListWithPage(WebParam map);
+	public List<Img> getImgListWithPage(WebParam map);
 
 	/**
 	 * 集合查询
 	 */
-	public List<ImgResultMap> getImgList(WebParam map);
+	public List<Img> getImgList(WebParam map);
 	
 	/**
 	 * 总条数

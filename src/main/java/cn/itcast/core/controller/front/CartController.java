@@ -3,10 +3,7 @@ package cn.itcast.core.controller.front;
 import cn.itcast.core.controller.BaseController;
 import cn.itcast.core.service.product.SkuService;
 import cn.itcast.core.web.Constants;
-import cn.itcast.core.web.pojo.BuyCart;
-import cn.itcast.core.web.pojo.BuyItem;
-import cn.itcast.core.web.pojo.WebParam;
-import cn.itcast.core.web.pojo.WebResultMap;
+import cn.itcast.core.web.pojo.*;
 import cn.itcast.validator.Validators;
 import cn.itcast.validator.annotation.Params;
 import cn.itcast.validator.annotation.Valid;
@@ -38,9 +35,9 @@ public class CartController extends BaseController{
     @RequestMapping(value = "/shopping/addCart.shtml")
     public String addCart(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         WebParam webParam = getWebParam();
-        WebResultMap sku = new WebResultMap();
-        sku.put("id", webParam.get("skuId"));
-        sku.put("skuUpperLimit", webParam.get("buyLimit"));
+        Sku sku = new Sku();
+        sku.setId((Integer) webParam.get("skuId"));
+        sku.setSkuUpperLimit((Integer) webParam.get("buyLimit"));
         BuyItem buyItem = new BuyItem();
         buyItem.setSku(sku);
         buyItem.setAmount((Integer) webParam.get("amount"));
@@ -66,11 +63,8 @@ public class CartController extends BaseController{
 
         List<BuyItem> items = buyCart.getItems();
         for (BuyItem item : items) {
-            String id = item.getSku().get("id").toString();
-            if (id.indexOf('.') > 0) {
-                id = id.substring(0,id.indexOf('.'));
-            }
-            WebResultMap s = skuService.getSkuByKey(Integer.parseInt(id));
+            Integer id = item.getSku().getId();
+            Sku s = skuService.getSkuByKey(id);
             item.setSku(s);
         }
         model.addAttribute("buyCart", buyCart);

@@ -3,6 +3,7 @@ package cn.itcast.core.controller.admin;
 import cn.itcast.common.web.ResponseUtils;
 import cn.itcast.core.controller.BaseController;
 import cn.itcast.core.service.product.SkuService;
+import cn.itcast.core.web.pojo.Sku;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.validator.Validators;
@@ -32,7 +33,7 @@ public class SkuController extends BaseController {
     @RequestMapping(value = "/sku/list.do")
     public String list(ModelMap model) {
         WebParam webParam = getWebParam();
-        List<WebResultMap> skuList = skuService.getSkuList(webParam);
+        List<Sku> skuList = skuService.getSkuList(webParam);
         model.addAttribute("skus",skuList);
         model.addAttribute("pams", webParam);
         return "sku/list";

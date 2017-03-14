@@ -338,9 +338,9 @@ function myOrder() {
 							<a href="javascript:void(0);" onclick="window.open('/product/display/detail.shtml?id=${entry.id}')" title="瑜伽服" class="pic"><img src="${entry.img.allUrl}" alt="瑜伽服" /></a>
 							<dl>
 								<!-- dt 10个文字+... -->
-								<dt><a href="javascript:void(0);" onclick="window.open('/product/display/detail.shtml?id=${entry.id}')" title="依琦莲2014瑜伽服套装新款">依琦莲2014瑜伽服套装新款</a></dt>
+								<dt><a href="javascript:void(0);" onclick="window.open('/product/display/detail.shtml?id=${entry.id}')" title="${entry.name}">${entry.name}</a></dt>
 								<!-- dt 25个文字+... -->
-								<dd class="h40">依琦莲2014瑜伽服套装新款</dd>
+								<dd class="h40">${entry.name}</dd>
 								<dd class="orange">￥128.00</dd>
 								<dd>北京有货</dd>
 								<dd><a href="#" title="加入购物车" class="inb btn70x21 mr">加入购物车</a></dd>

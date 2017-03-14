@@ -2,6 +2,8 @@ package cn.itcast.core.controller.front;
 
 import cn.itcast.core.controller.BaseController;
 import cn.itcast.core.service.product.*;
+import cn.itcast.core.web.pojo.Product;
+import cn.itcast.core.web.pojo.Sku;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.core.web.util.HrefParamUnion;
@@ -110,13 +112,13 @@ public class FrontProductController extends BaseController{
     @RequestMapping(value = "/product/display/detail.shtml")
     public String detail(ModelMap model) {
         WebParam webParam = getWebParam();
-        WebResultMap product = productService.getProductByKey(webParam);
+        Product product = productService.getProductByKey(webParam);
         model.addAttribute("product",product);
-        String[] colorIds = product.get("color").toString().split(",");
+        String[] colorIds = product.getColor().split(",");
         model.addAttribute("colorIds", colorIds);
         WebParam skuParam = new WebParam();
         skuParam.put("productId", webParam.get("id"));
-        List<WebResultMap> skuList = skuService.getStock(skuParam);
+        List<Sku> skuList = skuService.getStock(skuParam);
         model.addAttribute("skus",skuList);
         return "ftl/productDetail";
     }

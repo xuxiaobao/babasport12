@@ -27,8 +27,8 @@ public class BuyCart {
             for (BuyItem it : items) {
                 if (it.equals(item)) {
                     it.setAmount(it.getAmount()+item.getAmount());
-                    if (it.getAmount() > (Integer) item.getSku().get("skuUpperLimit")) {
-                        it.setAmount((Integer) item.getSku().get("skuUpperLimit"));
+                    if (it.getAmount() > item.getSku().getSkuUpperLimit()) {
+                        it.setAmount(item.getSku().getSkuUpperLimit());
                     }
                     return ;
                 }

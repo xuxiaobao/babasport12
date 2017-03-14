@@ -2,6 +2,7 @@ package cn.itcast.core.dao.product;
 
 import java.util.List;
 
+import cn.itcast.core.web.pojo.Color;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 
@@ -15,12 +16,12 @@ public interface ColorDao {
 	/**
 	 * 根据主键查找
 	 */
-	public WebResultMap getColorByKey(WebParam map);
+	public Color getColorByKey(WebParam map);
 
 	/**
 	 * 根据主键批量查找
 	 */
-	public List<WebResultMap> getColorsByKeys(WebParam map);
+	public List<Color> getColorsByKeys(WebParam map);
 
 	/**
 	 * 根据主键删除
@@ -40,12 +41,12 @@ public interface ColorDao {
 	/**
 	 * 分页查询
 	 */
-	public List<WebResultMap> getColorListWithPage(WebParam map);
+	public List<Color> getColorListWithPage(WebParam map);
 
 	/**
 	 * 集合查询
 	 */
-	public List<WebResultMap> getColorList(WebParam map);
+	public List<Color> getColorList(WebParam map);
 	
 	/**
 	 * 总条数

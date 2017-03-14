@@ -1,6 +1,7 @@
 package cn.itcast.core.service.product;
 
 import cn.itcast.core.dao.product.ColorDao;
+import cn.itcast.core.web.pojo.Color;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.page.Pagination;
@@ -23,11 +24,11 @@ public class ColorServiceImpl implements ColorService {
         return null;
     }
 
-    public WebResultMap getColorByKey(WebParam map) {
+    public Color getColorByKey(WebParam map) {
         return colorDao.getColorByKey(map);
     }
 
-    public List<WebResultMap> getColorsByKeys(WebParam map) {
+    public List<Color> getColorsByKeys(WebParam map) {
         return null;
     }
 
@@ -48,7 +49,7 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Transactional(readOnly = true)
-    public List<WebResultMap> getColorList(WebParam map) {
+    public List<Color> getColorList(WebParam map) {
         return colorDao.getColorList(map);
     }
 

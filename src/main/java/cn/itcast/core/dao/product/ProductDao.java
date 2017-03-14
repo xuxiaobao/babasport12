@@ -1,5 +1,6 @@
 package cn.itcast.core.dao.product;
 
+import cn.itcast.core.web.pojo.Product;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 
@@ -16,12 +17,12 @@ public interface ProductDao {
 	/**
 	 * 根据主键查找
 	 */
-	public WebResultMap getProductByKey(WebParam map);
+	public Product getProductByKey(WebParam map);
 
 	/**
 	 * 根据主键批量查找
 	 */
-	public List<WebResultMap> getProductsByKeys(WebParam map);
+	public List<Product> getProductsByKeys(WebParam map);
 
 	/**
 	 * 根据主键删除
@@ -41,12 +42,12 @@ public interface ProductDao {
 	/**
 	 * 分页查询
 	 */
-	public List<WebResultMap> getProductListWithPage(WebParam map);
+	public List<Product> getProductListWithPage(WebParam map);
 
 	/**
 	 * 集合查询
 	 */
-	public List<WebResultMap> getProductList(WebParam map);
+	public List<Product> getProductList(WebParam map);
 	
 	/**
 	 * 总条数

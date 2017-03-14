@@ -2,6 +2,7 @@ package cn.itcast.core.controller.admin;
 
 import cn.itcast.core.controller.BaseController;
 import cn.itcast.core.service.product.*;
+import cn.itcast.core.web.pojo.Color;
 import cn.itcast.core.web.pojo.WebParam;
 import cn.itcast.core.web.pojo.WebResultMap;
 import cn.itcast.core.web.util.HrefParamUnion;
@@ -92,7 +93,7 @@ public class ProductController extends BaseController{
         //加载颜色大全
         WebParam colorParam = new WebParam();
         colorParam.put("fields","id,name");
-        List<WebResultMap> colors = colorService.getColorList(colorParam);
+        List<Color> colors = colorService.getColorList(colorParam);
         model.addAttribute("colors",colors);
         return "product/add";
     }

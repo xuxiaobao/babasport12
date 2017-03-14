@@ -244,8 +244,8 @@ function buy(){
 					<c:forEach items="${colorIds}" var="colorId">
 						<c:set var="isDone" value="1" scope="page"></c:set>
 						<c:forEach items="${skus}" var="sku">
-							<c:if test="${colorId eq sku.color.id}">
-								<c:if test="${isDone eq 1}">
+							<c:if test="${colorId == sku.color.id}">
+								<c:if test="${isDone == 1}">
 									<a onclick="colorToRed(this,${colorId})" href="javascript:void(0)" title="西瓜红" class="changToWhite"><img width="25" height="25" data-img="1" src="/res/img/pic/ppp00.jpg" alt="西瓜红 "><i>${sku.color.name}</i></a>
 									<c:set var="isDone" value="0" scope="page"></c:set>
 								</c:if>

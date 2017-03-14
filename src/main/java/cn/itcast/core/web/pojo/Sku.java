@@ -26,6 +26,24 @@ public class Sku {
     private Integer lastStatus;
     private Integer skuType;
     private Integer sales;
+    private Product product;
+    private Color color;
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public Integer getId() {
         return id;

@@ -1,9 +1,7 @@
 package cn.itcast.core.service.product;
 
 import cn.itcast.core.dao.product.ProductDao;
-import cn.itcast.core.web.pojo.ImgResultMap;
-import cn.itcast.core.web.pojo.WebParam;
-import cn.itcast.core.web.pojo.WebResultMap;
+import cn.itcast.core.web.pojo.*;
 import cn.itcast.page.Pagination;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -81,19 +79,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Transactional(readOnly = true)
-    public WebResultMap getProductByKey(WebParam map) {
-        WebResultMap product = productDao.getProductByKey(map);
+    public Product getProductByKey(WebParam map) {
+        Product product = productDao.getProductByKey(map);
         WebParam imgParam = new WebParam();
-        imgParam.put("productId", product.get("id"));
+        imgParam.put("productId", product.getId());
         imgParam.put("isDef", 1);
-        List<ImgResultMap> imgList = imgService.getImgList(imgParam);
+        List<Img> imgList = imgService.getImgList(imgParam);
         if (imgList != null && imgList.size() > 0) {
-            product.put("img", imgList.get(0));
+            product.setImg(imgList.get(0));
         }
         return product;
     }
 
-    public List<WebResultMap> getProductsByKeys(WebParam map) {
+    public List<Product> getProductsByKeys(WebParam map) {
         return null;
     }
 
@@ -115,13 +113,13 @@ public class ProductServiceImpl implements ProductService {
         Integer pageNo = Integer.parseInt(map.get("pageNo").toString());
         Integer pageSize = Integer.parseInt(map.get("pageSize").toString());
         PageHelper.startPage(pageNo,pageSize);
-        List<WebResultMap> list = productDao.getProductListWithPage(map);
-        for (WebResultMap product : list) {
+        List<Product> list = productDao.getProductListWithPage(map);
+        for (Product product : list) {
             WebParam imgParam = new WebParam();
-            imgParam.put("productId",product.get("id"));
-            List<ImgResultMap> imgList = imgService.getImgList(imgParam);
+            imgParam.put("productId",product.getId());
+            List<Img> imgList = imgService.getImgList(imgParam);
             if (imgList != null && imgList.size() > 0) {
-                product.put("img",imgList.get(0));
+                product.setImg(imgList.get(0));
             }
         }
         PageInfo pageInfo = new PageInfo(list);
@@ -130,7 +128,7 @@ public class ProductServiceImpl implements ProductService {
         return pagination;
     }
 
-    public List<WebResultMap> getProductList(WebParam map) {
+    public List<Product> getProductList(WebParam map) {
         return null;
     }
 

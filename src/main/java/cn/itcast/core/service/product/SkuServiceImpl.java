@@ -1,9 +1,7 @@
 package cn.itcast.core.service.product;
 
 import cn.itcast.core.dao.product.SkuDao;
-import cn.itcast.core.web.pojo.Sku;
-import cn.itcast.core.web.pojo.WebParam;
-import cn.itcast.core.web.pojo.WebResultMap;
+import cn.itcast.core.web.pojo.*;
 import cn.itcast.page.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,13 +35,13 @@ public class SkuServiceImpl implements SkuService {
         Sku sku = skuDao.getSkuByKey(id);
         WebParam productParam = new WebParam();
         productParam.put("id", sku.getProductId());
-        WebResultMap product = productService.getProductByKey(productParam);
-        sku.put("product", product);
+        Product product = productService.getProductByKey(productParam);
+        sku.setProduct(product);
 
         WebParam colorParam = new WebParam();
-        colorParam.put("id",sku.get("colorId"));
-        WebResultMap color = colorService.getColorByKey(colorParam);
-        sku.put("color",color);
+        colorParam.put("id",sku.getColorId());
+        Color color = colorService.getColorByKey(colorParam);
+        sku.setColor(color);
         return sku;
     }
 
@@ -69,23 +67,23 @@ public class SkuServiceImpl implements SkuService {
 
     @Transactional(readOnly = true)
     public List<Sku> getSkuList(WebParam map) {
-        List<WebResultMap> skuList = skuDao.getSkuList(map);
-        for (WebResultMap sku : skuList) {
+        List<Sku> skuList = skuDao.getSkuList(map);
+        for (Sku sku : skuList) {
             WebParam colorParam = new WebParam();
-            colorParam.put("id",sku.get("colorId"));
-            WebResultMap color = colorService.getColorByKey(colorParam);
-            sku.put("color",color);
+            colorParam.put("id",sku.getColorId());
+            Color color = colorService.getColorByKey(colorParam);
+            sku.setColor(color);
         }
         return skuList;
     }
 
     public List<Sku> getStock(WebParam map) {
-        List<WebResultMap> skuList = skuDao.getStock(map);
-        for (WebResultMap sku : skuList) {
+        List<Sku> skuList = skuDao.getStock(map);
+        for (Sku sku : skuList) {
             WebParam colorParam = new WebParam();
-            colorParam.put("id",sku.get("colorId"));
-            WebResultMap color = colorService.getColorByKey(colorParam);
-            sku.put("color",color);
+            colorParam.put("id",sku.getColorId());
+            Color color = colorService.getColorByKey(colorParam);
+            sku.setColor(color);
         }
         return skuList;
     }
