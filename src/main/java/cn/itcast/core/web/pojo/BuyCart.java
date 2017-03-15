@@ -37,10 +37,31 @@ public class BuyCart {
         this.items.add(item);
     }
 
-    /**
-     * 重写equals方法
-     * @param obj
-     * @return
-     */
+    public int getProductAmount() {
+        int result = 0;
+        for (BuyItem item : items) {
+            result += item.getAmount();
+        }
+        return result;
+    }
 
+    public double getProductPrice() {
+        double result = 0.0;
+        for (BuyItem item : items) {
+            result += item.getSku().getSkuPrice()*item.getAmount();
+        }
+        return result;
+    }
+
+    public double getFee() {
+        double result = 0.0;
+        if (getProductPrice() <= 39.0) {
+            result = 10.0;
+        }
+        return result;
+    }
+
+    public double getTotalPrice() {
+        return getProductPrice()+getFee();
+    }
 }
