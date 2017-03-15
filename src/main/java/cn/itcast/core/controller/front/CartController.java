@@ -71,9 +71,36 @@ public class CartController extends BaseController{
         return "product/cart";
     }
 
-    @RequestMapping(value = "/shopping/buyCart.shtml")
-    public String buyCart() {
-
+    @RequestMapping(value = "/shopping/cart.shtml")
+    public String getCart(HttpServletRequest request, ModelMap model) {
+        BuyCart buyCart = null;
+        Cookie[] cookies = request.getCookies();
+        Gson gson = new Gson();
+        if (null != cookies && cookies.length > 0) {
+            for (Cookie cookie : cookies) {
+                if (Constants.CART_COOKIE.equals(cookie.getName())) {
+                    buyCart = gson.fromJson(cookie.getValue(), BuyCart.class);
+                }
+            }
+        }
+        if (null != buyCart) {
+            for (BuyItem item : buyCart.getItems()) {
+                Integer id = item.getSku().getId();
+                Sku s = skuService.getSkuByKey(id);
+                item.setSku(s);
+            }
+        }
+        model.addAttribute("buyCart", buyCart);
         return "product/cart";
+    }
+
+    @RequestMapping(value = "/shopping/clearCart.shtml")
+    public String buyCart(HttpServletRequest request, HttpServletResponse response) {
+
+        Cookie cookie = new Cookie(Constants.CART_COOKIE, null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return "redirect:/shopping/cart.shtml";
     }
 }
