@@ -8,6 +8,7 @@ import cn.itcast.validator.Validators;
 import cn.itcast.validator.annotation.Params;
 import cn.itcast.validator.annotation.Valid;
 import com.google.gson.Gson;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,15 +30,17 @@ public class CartController extends BaseController{
     @Valid({
             @Params(name = "skuId", type = Integer.class, validator = Validators.COMMON.REQUIRED),
             @Params(name = "amount", type = Integer.class, validator = Validators.COMMON.REQUIRED),
-            @Params(name = "buyLimit", type = Integer.class, validator = Validators.COMMON.REQUIRED),
-            @Params(name = "productId", type = Integer.class, validator = Validators.COMMON.REQUIRED),
+            @Params(name = "buyLimit", type = Integer.class),
+            @Params(name = "productId", type = Integer.class),
     })
     @RequestMapping(value = "/shopping/addCart.shtml")
     public String addCart(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         WebParam webParam = getWebParam();
         Sku sku = new Sku();
         sku.setId((Integer) webParam.get("skuId"));
-        sku.setSkuUpperLimit((Integer) webParam.get("buyLimit"));
+        if (webParam.get("buyLimit") != null) {
+          sku.setSkuUpperLimit((Integer) webParam.get("buyLimit"));
+        }
         BuyItem buyItem = new BuyItem();
         buyItem.setSku(sku);
         buyItem.setAmount((Integer) webParam.get("amount"));
@@ -55,7 +58,9 @@ public class CartController extends BaseController{
             buyCart = new BuyCart();
         }
         buyCart.addItem(buyItem);
-        buyCart.setProductId((Integer) webParam.get("productId"));
+        if (webParam.get("productId") != null) {
+            buyCart.setProductId((Integer) webParam.get("productId"));
+        }
         Cookie cookie = new Cookie(Constants.CART_COOKIE, gson.toJson(buyCart));
         cookie.setMaxAge(24*60*60);
         cookie.setPath("/");
@@ -102,5 +107,47 @@ public class CartController extends BaseController{
         cookie.setPath("/");
         response.addCookie(cookie);
         return "redirect:/shopping/cart.shtml";
+    }
+
+    @Valid({
+            @Params(name = "skuId", type = Integer.class, validator = Validators.COMMON.REQUIRED),
+    })
+    @RequestMapping(value = "/shopping/deleteCart.shtml")
+    public String buyCart(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+        WebParam webParam = getWebParam();
+        Sku sku = new Sku();
+        sku.setId((Integer) webParam.get("skuId"));
+        BuyItem buyItem = new BuyItem();
+        buyItem.setSku(sku);
+        BuyCart buyCart = null;
+        Gson gson = new Gson();
+        Cookie[] cookies = request.getCookies();
+        if (null != cookies && cookies.length > 0) {
+            for (Cookie cookie : cookies) {
+                if (Constants.CART_COOKIE.equals(cookie.getName())) {
+                    buyCart = gson.fromJson(cookie.getValue(), BuyCart.class);
+                }
+            }
+        }
+        if (null == buyCart) {
+            buyCart = new BuyCart();
+        }
+        buyCart.deleteItem(buyItem);
+        if (webParam.get("productId") != null) {
+            buyCart.setProductId((Integer) webParam.get("productId"));
+        }
+        Cookie cookie = new Cookie(Constants.CART_COOKIE, gson.toJson(buyCart));
+        cookie.setMaxAge(24*60*60);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        List<BuyItem> items = buyCart.getItems();
+        for (BuyItem item : items) {
+            Integer id = item.getSku().getId();
+            Sku s = skuService.getSkuByKey(id);
+            item.setSku(s);
+        }
+        model.addAttribute("buyCart", buyCart);
+        return "product/cart";
     }
 }

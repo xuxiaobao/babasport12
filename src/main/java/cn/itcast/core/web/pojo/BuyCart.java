@@ -27,8 +27,10 @@ public class BuyCart {
             for (BuyItem it : items) {
                 if (it.equals(item)) {
                     it.setAmount(it.getAmount()+item.getAmount());
-                    if (it.getAmount() > item.getSku().getSkuUpperLimit()) {
-                        it.setAmount(item.getSku().getSkuUpperLimit());
+                    if (item.getAmount() > 0) {
+                        if (it.getAmount() > item.getSku().getSkuUpperLimit()) {
+                            it.setAmount(item.getSku().getSkuUpperLimit());
+                        }
                     }
                     return ;
                 }
@@ -63,5 +65,11 @@ public class BuyCart {
 
     public double getTotalPrice() {
         return getProductPrice()+getFee();
+    }
+
+    public void deleteItem(BuyItem item) {
+        if (items.contains(item)) {
+            items.remove(item);
+        }
     }
 }
